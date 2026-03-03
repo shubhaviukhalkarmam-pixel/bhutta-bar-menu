@@ -5,103 +5,93 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bhutta Bar 🌽</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
-  --yellow:#F5C542;
-  --green:#3E8E41;
-  --pink:#FFD7E2;
-  --blue:#D7EEFF;
-  --paper:#F8F6EE;
-  --text:#222;
+  --yellow:#FFD84D;
+  --green:#6BBF59;
+  --pink:#FFB7C5;
+  --blue:#CDEBFF;
+  --ink:#2b2b2b;
 }
 
+/* NOTEBOOK BACKGROUND */
 body{
   margin:0;
-  font-family:'Poppins',sans-serif;
-  background:var(--paper);
-  color:var(--text);
+  font-family:'Quicksand',sans-serif;
+  background:
+    repeating-linear-gradient(
+      white,
+      white 28px,
+      #cfe7ff 29px
+    );
+  color:var(--ink);
   overflow-x:hidden;
 }
 
-/* SCRAPBOOK PAPER TEXTURE */
+/* LEFT PINK MARGIN LINE */
 body::before{
   content:"";
   position:fixed;
-  inset:0;
-  background:radial-gradient(rgba(0,0,0,0.02) 1px, transparent 1px);
-  background-size:4px 4px;
-  pointer-events:none;
+  left:60px;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:#ff9bb0;
+  opacity:.6;
 }
 
 /* HEADER */
 header{
-  background:var(--yellow);
-  padding:20px;
   text-align:center;
-  position:sticky;
-  top:0;
-  z-index:100;
-  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  padding:40px 20px 20px;
 }
 
 header h1{
-  font-family:'Playfair Display',serif;
+  font-family:'Caveat',cursive;
+  font-size:3rem;
+  color:var(--green);
   margin:0;
-  font-size:2rem;
 }
 
 header p{
   font-family:'Patrick Hand',cursive;
+  font-size:1.2rem;
   margin:5px 0 0;
 }
 
-.toggle{
-  position:absolute;
-  right:20px;
-  top:20px;
-  cursor:pointer;
-  font-size:0.9rem;
-}
-
-/* SECTIONS */
-section{
-  padding:60px 20px;
-  max-width:900px;
-  margin:auto;
-}
-
+/* SECTION TITLE */
 .section-title{
-  font-family:'Patrick Hand',cursive;
-  font-size:2rem;
-  margin-bottom:30px;
-  position:relative;
+  font-family:'Caveat',cursive;
+  font-size:2.2rem;
+  color:var(--yellow);
+  margin:60px 0 20px 90px;
 }
 
-.section-title::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-5px;
-  width:100px;
-  height:8px;
-  background:var(--pink);
-}
-
-/* CARD STYLE */
+/* TORN PAPER CARD */
 .card{
-  background:white;
-  padding:20px;
-  margin-bottom:20px;
-  border-radius:12px;
-  box-shadow:0 6px 15px rgba(0,0,0,0.08);
   position:relative;
+  width:80%;
+  margin:20px auto;
+  padding:20px;
+  background:#fffef7;
+  transform:rotate(-1deg);
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+  clip-path:polygon(
+    0% 10%, 5% 0%, 95% 0%, 100% 10%,
+    100% 90%, 95% 100%, 5% 100%, 0% 90%
+  );
   transition:transform .3s;
 }
 
+.card:nth-child(even){
+  transform:rotate(1deg);
+}
+
 .card:hover{
-  transform:translateY(-6px);
+  transform:scale(1.03) rotate(0deg);
 }
 
 .price{
@@ -115,49 +105,34 @@ section{
 }
 
 .ingredients{
-  font-size:0.85rem;
-  opacity:0.7;
+  font-family:'Patrick Hand',cursive;
+  opacity:.7;
   margin:8px 0;
 }
 
 button{
   background:var(--green);
   border:none;
-  padding:8px 16px;
-  color:white;
+  padding:8px 15px;
   border-radius:20px;
+  color:white;
   cursor:pointer;
-  transition:.2s;
+  font-family:'Patrick Hand',cursive;
 }
 
-button:hover{
-  transform:scale(1.05);
-}
-
-/* FLOATING BUBBLES */
-.bubble{
-  position:absolute;
-  width:10px;
-  height:10px;
-  background:rgba(0,0,0,0.05);
-  border-radius:50%;
-  animation:rise 6s infinite ease-in;
-}
-
-@keyframes rise{
-  from{transform:translateY(0);opacity:0.5;}
-  to{transform:translateY(-200px);opacity:0;}
+button:active{
+  transform:scale(.9);
 }
 
 /* CART BUTTON */
 #cartBtn{
   position:fixed;
-  bottom:20px;
-  right:20px;
-  background:var(--green);
-  color:white;
+  bottom:25px;
+  right:25px;
+  background:var(--yellow);
   padding:15px;
   border-radius:50%;
+  font-size:1.5rem;
   cursor:pointer;
   box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
@@ -166,10 +141,10 @@ button:hover{
   position:absolute;
   top:-5px;
   right:-5px;
-  background:red;
+  background:var(--green);
   color:white;
-  font-size:0.7rem;
-  padding:3px 6px;
+  font-size:.7rem;
+  padding:4px 6px;
   border-radius:50%;
 }
 
@@ -184,26 +159,48 @@ button:hover{
 }
 
 .modal-content{
-  background:white;
+  background:#fffef7;
   padding:30px;
   width:90%;
   max-width:400px;
-  border-radius:12px;
-  max-height:80vh;
-  overflow:auto;
+  border-radius:10px;
 }
 
-.dark{
-  background:#1c1c1c;
-  color:#eee;
+/* BUBBLES */
+.bubble{
+  position:fixed;
+  bottom:-20px;
+  width:12px;
+  height:12px;
+  background:rgba(107,191,89,.4);
+  border-radius:50%;
+  animation:rise 10s infinite linear;
 }
 
-.dark .card{
-  background:#2a2a2a;
+@keyframes rise{
+  from{transform:translateY(0);}
+  to{transform:translateY(-110vh);}
 }
 
-.dark header{
-  background:#333;
+/* FLY ITEM */
+.fly{
+  position:fixed;
+  font-size:1.2rem;
+  pointer-events:none;
+  transition:all .8s ease-in-out;
+}
+
+/* CONFETTI */
+.confetti{
+  position:fixed;
+  width:8px;
+  height:8px;
+  background:var(--pink);
+  animation:fall 2s linear forwards;
+}
+
+@keyframes fall{
+  to{transform:translateY(100vh) rotate(360deg);}
 }
 
 </style>
@@ -212,131 +209,88 @@ button:hover{
 
 <header>
   <h1>Bhutta Bar 🌽</h1>
-  <p>made with butter & love</p>
-  <div class="toggle" onclick="toggleDark()">🌙</div>
+  <p>butter, fizz & cute vibes</p>
 </header>
 
-<section>
-  <h2 class="section-title">Corn ♥ Creations</h2>
+<h2 class="section-title">Corn ♥ Creations</h2>
 
-  <div class="card">
-    <div class="price">₹40</div>
-    <h3>Classic Butter Corn</h3>
-    <div class="ingredients">Hot sweet corn with butter & salt</div>
-    <button onclick="addItem('Classic Butter Corn',40)">Add to Tray</button>
-  </div>
+<div id="menu"></div>
 
-  <div class="card">
-    <div class="price">₹50</div>
-    <h3>Masala Corn</h3>
-    <div class="ingredients">Corn + lemon + chaat masala + onion</div>
-    <button onclick="addItem('Masala Corn',50)">Add to Tray</button>
-  </div>
-
-  <div class="card">
-    <div class="price">₹60</div>
-    <h3>Peri Peri Corn</h3>
-    <div class="ingredients">Spicy & tangy peri peri flavor</div>
-    <button onclick="addItem('Peri Peri Corn',60)">Add to Tray</button>
-  </div>
-
-  <div class="card">
-    <div class="price">₹70</div>
-    <h3>Cheese Corn ⭐</h3>
-    <div class="ingredients">Loaded with melted cheese</div>
-    <button onclick="addItem('Cheese Corn',70)">Add to Tray</button>
-  </div>
-
-  <div class="card">
-    <div class="price">₹70</div>
-    <h3>Tandoori Corn Cup</h3>
-    <div class="ingredients">Smoky masala roasted style</div>
-    <button onclick="addItem('Tandoori Corn Cup',70)">Add to Tray</button>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">Fizz & Lime Diaries</h2>
-
-  <div class="card">
-    <div class="price">₹30</div>
-    <h3>Sweet Lime Soda</h3>
-    <div class="ingredients">Fresh nimbu + sugar + soda</div>
-    <button onclick="addItem('Sweet Lime Soda',30)">Add to Tray</button>
-  </div>
-
-  <div class="card">
-    <div class="price">₹30</div>
-    <h3>Salted Lime Soda</h3>
-    <div class="ingredients">Salt + lemon + soda</div>
-    <button onclick="addItem('Salted Lime Soda',30)">Add to Tray</button>
-  </div>
-
-  <div class="card">
-    <div class="price">₹40</div>
-    <h3>Mint Lime Soda</h3>
-    <div class="ingredients">Minty refreshing twist</div>
-    <button onclick="addItem('Mint Lime Soda',40)">Add to Tray</button>
-  </div>
-
-  <div class="card">
-    <div class="price">₹40</div>
-    <h3>Masala Lime Soda</h3>
-    <div class="ingredients">Jeera + black salt + masala</div>
-    <button onclick="addItem('Masala Lime Soda',40)">Add to Tray</button>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">Cute Combos</h2>
-
-  <div class="card">
-    <div class="price">₹70</div>
-    <h3>Corn + Lime Soda Combo</h3>
-    <div class="ingredients">Any classic corn + any lime soda</div>
-    <button onclick="addItem('Corn + Lime Soda Combo',70)">Add to Tray</button>
-  </div>
-
-  <div class="card">
-    <div class="price">₹100</div>
-    <h3>Cheese Corn + Mint Lime Soda</h3>
-    <div class="ingredients">Best Seller Combo</div>
-    <button onclick="addItem('Cheese Corn + Mint Lime Soda',100)">Add to Tray</button>
-  </div>
-</section>
-
-<div id="cartBtn" onclick="openCart()">
-🛒
-<span id="cartCount">0</span>
-</div>
+<div id="cartBtn" onclick="openCart()">🛒<span id="cartCount">0</span></div>
 
 <div id="cartModal">
   <div class="modal-content">
     <h3>Your Order</h3>
     <div id="cartItems"></div>
-    <p><strong>Total: ₹<span id="total">0</span></strong></p>
+    <p>Total: ₹<span id="total">0</span></p>
     <button onclick="checkout()">Send to WhatsApp</button>
     <button onclick="closeCart()">Close</button>
   </div>
 </div>
 
 <script>
-let cart=[];
-function addItem(name,price){
-  cart.push({name,price});
+
+/* MENU DATA */
+const items=[
+["Classic Butter Corn",40,"Hot sweet corn with butter & salt"],
+["Masala Corn",50,"Corn + lemon + chaat masala + onion"],
+["Peri Peri Corn",60,"Spicy & tangy peri peri flavor"],
+["Cheese Corn",70,"Loaded with melted cheese"],
+["Tandoori Corn Cup",70,"Smoky masala roasted style"],
+["Sweet Lime Soda",30,"Fresh nimbu + sugar + soda"],
+["Salted Lime Soda",30,"Salt + lemon + soda"],
+["Mint Lime Soda",40,"Minty refreshing twist"],
+["Masala Lime Soda",40,"Jeera + black salt + masala"],
+["Corn + Lime Soda Combo",70,"Any classic corn + any lime soda"],
+["Cheese Corn + Mint Lime Soda",100,"Best seller combo"]
+];
+
+let cart={};
+
+const menuDiv=document.getElementById("menu");
+
+items.forEach(item=>{
+  const card=document.createElement("div");
+  card.className="card";
+  card.innerHTML=`
+    <div class="price">₹${item[1]}</div>
+    <h3>${item[0]}</h3>
+    <div class="ingredients">${item[2]}</div>
+    <button onclick="addItem('${item[0]}',${item[1]},event)">Add</button>
+  `;
+  menuDiv.appendChild(card);
+});
+
+function addItem(name,price,e){
+  if(!cart[name]) cart[name]={price:price,qty:0};
+  cart[name].qty++;
   updateCart();
+  flyAnimation(e);
+  popSound();
 }
 
 function updateCart(){
-  document.getElementById("cartCount").innerText=cart.length;
-  let itemsHTML="";
   let total=0;
-  cart.forEach(item=>{
-    itemsHTML+=`<p>${item.name} - ₹${item.price}</p>`;
-    total+=item.price;
-  });
-  document.getElementById("cartItems").innerHTML=itemsHTML;
+  let html="";
+  let count=0;
+  for(let item in cart){
+    total+=cart[item].price*cart[item].qty;
+    count+=cart[item].qty;
+    html+=`
+      <p>${item} x${cart[item].qty}
+      <button onclick="changeQty('${item}',-1)">-</button>
+      <button onclick="changeQty('${item}',1)">+</button>
+      </p>`;
+  }
+  document.getElementById("cartItems").innerHTML=html;
   document.getElementById("total").innerText=total;
+  document.getElementById("cartCount").innerText=count;
+}
+
+function changeQty(name,val){
+  cart[name].qty+=val;
+  if(cart[name].qty<=0) delete cart[name];
+  updateCart();
 }
 
 function openCart(){
@@ -349,18 +303,58 @@ function closeCart(){
 
 function checkout(){
   let message="Hello! I would like to order:%0A";
-  cart.forEach(item=>{
-    message+=`${item.name} - ₹${item.price}%0A`;
-  });
+  for(let item in cart){
+    message+=`${item} x${cart[item].qty}%0A`;
+  }
   message+=`Total: ₹${document.getElementById("total").innerText}`;
-  window.open("https://wa.me/918087532868?text="+message);
+  window.open("https://wa.me/91YOURNUMBER?text="+message);
+  confettiBurst();
 }
 
-function toggleDark(){
-  document.body.classList.toggle("dark");
+/* FLY ANIMATION */
+function flyAnimation(e){
+  const fly=document.createElement("div");
+  fly.className="fly";
+  fly.innerText="🌽";
+  document.body.appendChild(fly);
+  fly.style.left=e.clientX+"px";
+  fly.style.top=e.clientY+"px";
+  setTimeout(()=>{
+    fly.style.left=window.innerWidth-60+"px";
+    fly.style.top=window.innerHeight-60+"px";
+    fly.style.opacity=0;
+  },10);
+  setTimeout(()=>fly.remove(),800);
 }
+
+/* CONFETTI */
+function confettiBurst(){
+  for(let i=0;i<30;i++){
+    const conf=document.createElement("div");
+    conf.className="confetti";
+    conf.style.left=Math.random()*100+"vw";
+    conf.style.background=["#FFD84D","#6BBF59","#FFB7C5"][Math.floor(Math.random()*3)];
+    document.body.appendChild(conf);
+    setTimeout(()=>conf.remove(),2000);
+  }
+}
+
+/* SOUND */
+function popSound(){
+  const audio=new Audio("https://www.soundjay.com/buttons/sounds/button-16.mp3");
+  audio.play();
+}
+
+/* BUBBLES */
+setInterval(()=>{
+  const bubble=document.createElement("div");
+  bubble.className="bubble";
+  bubble.style.left=Math.random()*100+"vw";
+  document.body.appendChild(bubble);
+  setTimeout(()=>bubble.remove(),10000);
+},1500);
+
 </script>
 
 </body>
 </html>
-
