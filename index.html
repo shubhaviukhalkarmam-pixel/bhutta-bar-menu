@@ -5,211 +5,360 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bhutta Bar 🌽</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
 
 <style>
-
 :root{
-  --bg:#fdf6ec;
-  --text:#2b2b2b;
-  --accent:#d97706;
-  --card:#fffaf3;
-}
-
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg:#111;
-    --text:#f4f4f4;
-    --accent:#ffb703;
-    --card:#1b1b1b;
-  }
+  --yellow:#F5C542;
+  --green:#3E8E41;
+  --pink:#FFD7E2;
+  --blue:#D7EEFF;
+  --paper:#F8F6EE;
+  --text:#222;
 }
 
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:var(--bg);
+  background:var(--paper);
   color:var(--text);
   overflow-x:hidden;
-  cursor:url('https://cur.cursors-4u.net/food/foo-1/foo76.cur'),auto;
 }
 
+/* SCRAPBOOK PAPER TEXTURE */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:radial-gradient(rgba(0,0,0,0.02) 1px, transparent 1px);
+  background-size:4px 4px;
+  pointer-events:none;
+}
+
+/* HEADER */
 header{
+  background:var(--yellow);
+  padding:20px;
+  text-align:center;
   position:sticky;
   top:0;
-  backdrop-filter:blur(10px);
-  background:rgba(255,255,255,0.6);
-  padding:15px;
-  text-align:center;
+  z-index:100;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+header h1{
   font-family:'Playfair Display',serif;
-  font-size:28px;
-  z-index:1000;
+  margin:0;
+  font-size:2rem;
 }
 
-.menu{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-  padding:40px;
+header p{
+  font-family:'Patrick Hand',cursive;
+  margin:5px 0 0;
 }
 
-.card{
-  background:var(--card);
-  padding:20px;
-  border-radius:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.1);
-  text-align:center;
-  transition:0.4s;
+.toggle{
+  position:absolute;
+  right:20px;
+  top:20px;
+  cursor:pointer;
+  font-size:0.9rem;
+}
+
+/* SECTIONS */
+section{
+  padding:60px 20px;
+  max-width:900px;
+  margin:auto;
+}
+
+.section-title{
+  font-family:'Patrick Hand',cursive;
+  font-size:2rem;
+  margin-bottom:30px;
   position:relative;
 }
 
+.section-title::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-5px;
+  width:100px;
+  height:8px;
+  background:var(--pink);
+}
+
+/* CARD STYLE */
+.card{
+  background:white;
+  padding:20px;
+  margin-bottom:20px;
+  border-radius:12px;
+  box-shadow:0 6px 15px rgba(0,0,0,0.08);
+  position:relative;
+  transition:transform .3s;
+}
+
 .card:hover{
-  transform:translateY(-10px);
-}
-
-.card img{
-  width:100%;
-  border-radius:15px;
-  animation:float 3s ease-in-out infinite;
-}
-
-@keyframes float{
-  0%{transform:translateY(0);}
-  50%{transform:translateY(-10px);}
-  100%{transform:translateY(0);}
+  transform:translateY(-6px);
 }
 
 .price{
-  color:var(--accent);
-  font-weight:600;
-  animation:glow 2s infinite alternate;
-}
-
-@keyframes glow{
-  from{opacity:0.6;}
-  to{text-shadow:0 0 10px var(--accent);}
-}
-
-button{
-  background:var(--accent);
-  border:none;
-  padding:10px 20px;
-  color:white;
-  border-radius:30px;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  transform:scale(1.1);
-}
-
-.cart-btn{
-  position:fixed;
-  bottom:20px;
+  position:absolute;
   right:20px;
-  background:black;
-  color:white;
-  padding:15px 20px;
-  border-radius:50px;
+  top:20px;
+  background:var(--yellow);
+  padding:5px 12px;
+  border-radius:20px;
   font-weight:bold;
 }
 
-.bubbles{
-  position:fixed;
-  bottom:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  overflow:hidden;
+.ingredients{
+  font-size:0.85rem;
+  opacity:0.7;
+  margin:8px 0;
 }
 
-.bubbles span{
+button{
+  background:var(--green);
+  border:none;
+  padding:8px 16px;
+  color:white;
+  border-radius:20px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+/* FLOATING BUBBLES */
+.bubble{
   position:absolute;
-  bottom:-50px;
-  width:15px;
-  height:15px;
-  background:rgba(255,255,255,0.3);
+  width:10px;
+  height:10px;
+  background:rgba(0,0,0,0.05);
   border-radius:50%;
-  animation:rise 10s linear infinite;
+  animation:rise 6s infinite ease-in;
 }
 
 @keyframes rise{
-  0%{transform:translateY(0);}
-  100%{transform:translateY(-100vh);}
+  from{transform:translateY(0);opacity:0.5;}
+  to{transform:translateY(-200px);opacity:0;}
+}
+
+/* CART BUTTON */
+#cartBtn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:var(--green);
+  color:white;
+  padding:15px;
+  border-radius:50%;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+#cartCount{
+  position:absolute;
+  top:-5px;
+  right:-5px;
+  background:red;
+  color:white;
+  font-size:0.7rem;
+  padding:3px 6px;
+  border-radius:50%;
+}
+
+/* CART MODAL */
+#cartModal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-content{
+  background:white;
+  padding:30px;
+  width:90%;
+  max-width:400px;
+  border-radius:12px;
+  max-height:80vh;
+  overflow:auto;
+}
+
+.dark{
+  background:#1c1c1c;
+  color:#eee;
+}
+
+.dark .card{
+  background:#2a2a2a;
+}
+
+.dark header{
+  background:#333;
 }
 
 </style>
 </head>
 <body>
 
-<header>Bhutta Bar 🌽</header>
+<header>
+  <h1>Bhutta Bar 🌽</h1>
+  <p>made with butter & love</p>
+  <div class="toggle" onclick="toggleDark()">🌙</div>
+</header>
 
-<section class="menu">
+<section>
+  <h2 class="section-title">Corn ♥ Creations</h2>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1604908177522-402b7f6c1b2f" alt="">
-<h3>Masala Bhutta</h3>
-<p class="price">₹40</p>
-<button onclick="addToCart('Masala Bhutta',40)">Add</button>
-</div>
+  <div class="card">
+    <div class="price">₹40</div>
+    <h3>Classic Butter Corn</h3>
+    <div class="ingredients">Hot sweet corn with butter & salt</div>
+    <button onclick="addItem('Classic Butter Corn',40)">Add to Tray</button>
+  </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1590080876098-1a89e2b1f6d7" alt="">
-<h3>Cheese Bhutta</h3>
-<p class="price">₹60</p>
-<button onclick="addToCart('Cheese Bhutta',60)">Add</button>
-</div>
+  <div class="card">
+    <div class="price">₹50</div>
+    <h3>Masala Corn</h3>
+    <div class="ingredients">Corn + lemon + chaat masala + onion</div>
+    <button onclick="addItem('Masala Corn',50)">Add to Tray</button>
+  </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1605478039269-efb5bfe5c5d7" alt="">
-<h3>Lemon Soda</h3>
-<p class="price">₹50</p>
-<button onclick="addToCart('Lemon Soda',50)">Add</button>
-</div>
+  <div class="card">
+    <div class="price">₹60</div>
+    <h3>Peri Peri Corn</h3>
+    <div class="ingredients">Spicy & tangy peri peri flavor</div>
+    <button onclick="addItem('Peri Peri Corn',60)">Add to Tray</button>
+  </div>
 
+  <div class="card">
+    <div class="price">₹70</div>
+    <h3>Cheese Corn ⭐</h3>
+    <div class="ingredients">Loaded with melted cheese</div>
+    <button onclick="addItem('Cheese Corn',70)">Add to Tray</button>
+  </div>
+
+  <div class="card">
+    <div class="price">₹70</div>
+    <h3>Tandoori Corn Cup</h3>
+    <div class="ingredients">Smoky masala roasted style</div>
+    <button onclick="addItem('Tandoori Corn Cup',70)">Add to Tray</button>
+  </div>
 </section>
 
-<button class="cart-btn" onclick="checkout()">Order on WhatsApp 🛒</button>
+<section>
+  <h2 class="section-title">Fizz & Lime Diaries</h2>
 
-<div class="bubbles">
-<span style="left:10%; animation-delay:0s;"></span>
-<span style="left:30%; animation-delay:2s;"></span>
-<span style="left:60%; animation-delay:4s;"></span>
-<span style="left:80%; animation-delay:1s;"></span>
+  <div class="card">
+    <div class="price">₹30</div>
+    <h3>Sweet Lime Soda</h3>
+    <div class="ingredients">Fresh nimbu + sugar + soda</div>
+    <button onclick="addItem('Sweet Lime Soda',30)">Add to Tray</button>
+  </div>
+
+  <div class="card">
+    <div class="price">₹30</div>
+    <h3>Salted Lime Soda</h3>
+    <div class="ingredients">Salt + lemon + soda</div>
+    <button onclick="addItem('Salted Lime Soda',30)">Add to Tray</button>
+  </div>
+
+  <div class="card">
+    <div class="price">₹40</div>
+    <h3>Mint Lime Soda</h3>
+    <div class="ingredients">Minty refreshing twist</div>
+    <button onclick="addItem('Mint Lime Soda',40)">Add to Tray</button>
+  </div>
+
+  <div class="card">
+    <div class="price">₹40</div>
+    <h3>Masala Lime Soda</h3>
+    <div class="ingredients">Jeera + black salt + masala</div>
+    <button onclick="addItem('Masala Lime Soda',40)">Add to Tray</button>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">Cute Combos</h2>
+
+  <div class="card">
+    <div class="price">₹70</div>
+    <h3>Corn + Lime Soda Combo</h3>
+    <div class="ingredients">Any classic corn + any lime soda</div>
+    <button onclick="addItem('Corn + Lime Soda Combo',70)">Add to Tray</button>
+  </div>
+
+  <div class="card">
+    <div class="price">₹100</div>
+    <h3>Cheese Corn + Mint Lime Soda</h3>
+    <div class="ingredients">Best Seller Combo</div>
+    <button onclick="addItem('Cheese Corn + Mint Lime Soda',100)">Add to Tray</button>
+  </div>
+</section>
+
+<div id="cartBtn" onclick="openCart()">
+🛒
+<span id="cartCount">0</span>
 </div>
 
-<audio id="popSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
+<div id="cartModal">
+  <div class="modal-content">
+    <h3>Your Order</h3>
+    <div id="cartItems"></div>
+    <p><strong>Total: ₹<span id="total">0</span></strong></p>
+    <button onclick="checkout()">Send to WhatsApp</button>
+    <button onclick="closeCart()">Close</button>
+  </div>
+</div>
 
 <script>
-
 let cart=[];
+function addItem(name,price){
+  cart.push({name,price});
+  updateCart();
+}
 
-function addToCart(item,price){
-  cart.push({item,price});
-  document.getElementById("popSound").play();
-  alert(item+" added to cart 🌽");
+function updateCart(){
+  document.getElementById("cartCount").innerText=cart.length;
+  let itemsHTML="";
+  let total=0;
+  cart.forEach(item=>{
+    itemsHTML+=`<p>${item.name} - ₹${item.price}</p>`;
+    total+=item.price;
+  });
+  document.getElementById("cartItems").innerHTML=itemsHTML;
+  document.getElementById("total").innerText=total;
+}
+
+function openCart(){
+  document.getElementById("cartModal").style.display="flex";
+}
+
+function closeCart(){
+  document.getElementById("cartModal").style.display="none";
 }
 
 function checkout(){
-  if(cart.length===0){
-    alert("Cart empty!");
-    return;
-  }
-
-  let message="Hello Bhutta Bar 🌽%0AOrder Details:%0A";
-  let total=0;
-
-  cart.forEach(c=>{
-    message+="• "+c.item+" - ₹"+c.price+"%0A";
-    total+=c.price;
+  let message="Hello! I would like to order:%0A";
+  cart.forEach(item=>{
+    message+=`${item.name} - ₹${item.price}%0A`;
   });
-
-  message+="%0ATotal: ₹"+total;
-
+  message+=`Total: ₹${document.getElementById("total").innerText}`;
   window.open("https://wa.me/91YOURNUMBER?text="+message);
 }
 
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
 </script>
 
 </body>
