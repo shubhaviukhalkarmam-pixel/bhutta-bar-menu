@@ -5,138 +5,205 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bhutta Bar Menu</title>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root{
+  --primary:#6b8e00;
+  --accent:#a4c400;
+  --light-bg:linear-gradient(135deg,#f9ffd1,#dcff87);
+  --dark-bg:linear-gradient(135deg,#1c2200,#2f3b00);
+  --card-light:rgba(255,255,255,0.75);
+  --card-dark:rgba(40,50,0,0.85);
+  --text-light:#2e3d00;
+  --text-dark:#f4ffd1;
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #f7ffcc, #d4f57c);
-    display: flex;
-    justify-content: center;
-    padding: 40px 15px;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  transition:all 0.3s ease;
 }
 
-.menu-container {
-    width: 100%;
-    max-width: 750px;
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(15px);
-    border-radius: 25px;
-    padding: 40px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    border: 2px solid #c7e86b;
+body{
+  font-family:'Poppins',sans-serif;
+  background:var(--light-bg);
+  display:flex;
+  justify-content:center;
+  padding:40px 15px;
+  min-height:100vh;
 }
 
-.header {
-    text-align: center;
-    margin-bottom: 35px;
+body.dark{
+  background:var(--dark-bg);
 }
 
-.header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    color: #567d00;
-    letter-spacing: 2px;
+.menu-container{
+  width:100%;
+  max-width:800px;
+  background:var(--card-light);
+  backdrop-filter:blur(20px);
+  border-radius:25px;
+  padding:45px;
+  box-shadow:0 25px 60px rgba(0,0,0,0.15);
+  border:1px solid rgba(255,255,255,0.4);
+  animation:fadeIn 1s ease forwards;
 }
 
-.header p {
-    font-size: 14px;
-    color: #6a7c35;
-    margin-top: 5px;
+body.dark .menu-container{
+  background:var(--card-dark);
+  color:var(--text-dark);
 }
 
-.divider {
-    height: 3px;
-    background: linear-gradient(to right, transparent, #a4c400, transparent);
-    margin: 30px 0;
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
-.section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    color: #4f6f00;
-    margin-bottom: 20px;
-    text-align: center;
-    letter-spacing: 1px;
+.header{
+  text-align:center;
+  margin-bottom:35px;
+  position:relative;
 }
 
-.menu-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 22px;
-    padding: 15px;
-    border-radius: 15px;
-    transition: all 0.3s ease;
+.header h1{
+  font-family:'Playfair Display',serif;
+  font-size:44px;
+  color:var(--primary);
+  letter-spacing:2px;
 }
 
-.menu-item:hover {
-    background-color: #f3ffd9;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+body.dark .header h1{
+  color:#d8ff62;
 }
 
-.item-details {
-    max-width: 80%;
+.tagline{
+  font-size:14px;
+  margin-top:6px;
+  opacity:0.8;
 }
 
-.item-name {
-    font-weight: 600;
-    font-size: 17px;
-    color: #3d5400;
+.divider{
+  height:2px;
+  background:linear-gradient(to right,transparent,var(--accent),transparent);
+  margin:35px 0;
 }
 
-.item-desc {
-    font-size: 13px;
-    color: #6f7d42;
-    margin-top: 4px;
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:28px;
+  margin-bottom:25px;
+  text-align:center;
+  letter-spacing:1px;
 }
 
-.price {
-    font-weight: 600;
-    font-size: 16px;
-    color: #7aa800;
+.menu-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  padding:18px;
+  border-radius:18px;
+  margin-bottom:18px;
 }
 
-.combo-section {
-    background: linear-gradient(135deg, #f0ffb3, #e4ff8f);
-    padding: 20px;
-    border-radius: 18px;
-    margin-top: 10px;
+.menu-item:hover{
+  background:rgba(255,255,255,0.5);
+  transform:translateY(-4px);
+  box-shadow:0 12px 30px rgba(0,0,0,0.08);
 }
 
-.footer {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 13px;
-    color: #6a7c35;
+body.dark .menu-item:hover{
+  background:rgba(255,255,255,0.05);
+}
+
+.item-details{
+  max-width:80%;
+}
+
+.item-name{
+  font-weight:600;
+  font-size:18px;
+}
+
+.item-desc{
+  font-size:13px;
+  opacity:0.7;
+  margin-top:5px;
+}
+
+.price{
+  font-weight:600;
+  font-size:17px;
+  color:var(--accent);
+}
+
+.combo-box{
+  padding:20px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#f0ffb3,#e5ff8a);
+}
+
+body.dark .combo-box{
+  background:linear-gradient(135deg,#394500,#2b3300);
+}
+
+.qr-section{
+  text-align:center;
+  margin-top:40px;
+  padding:25px;
+  border:2px dashed var(--accent);
+  border-radius:18px;
+}
+
+.qr-placeholder{
+  margin-top:15px;
+  padding:30px;
+  background:rgba(0,0,0,0.05);
+  border-radius:12px;
+  font-size:14px;
+  opacity:0.7;
+}
+
+body.dark .qr-placeholder{
+  background:rgba(255,255,255,0.05);
+}
+
+.floating-btn{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  background:var(--accent);
+  color:white;
+  padding:15px 22px;
+  border-radius:50px;
+  font-weight:600;
+  text-decoration:none;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.floating-btn:hover{
+  transform:scale(1.08);
+}
+
+.toggle{
+  position:absolute;
+  top:0;
+  right:0;
+  cursor:pointer;
+  font-size:14px;
+  padding:6px 10px;
+  border-radius:20px;
+  background:var(--accent);
+  color:white;
 }
 
 @media(max-width:600px){
-    .menu-container{
-        padding:25px;
-    }
-
-    .header h1{
-        font-size:32px;
-    }
-
-    .menu-item{
-        flex-direction: column;
-        gap:5px;
-    }
-
-    .price{
-        align-self:flex-end;
-    }
+  .menu-container{padding:30px;}
+  .header h1{font-size:34px;}
+  .menu-item{flex-direction:column; gap:6px;}
+  .price{align-self:flex-end;}
 }
 
 </style>
@@ -147,8 +214,9 @@ body {
 <div class="menu-container">
 
 <div class="header">
+<div class="toggle" onclick="toggleDark()">🌙 Dark</div>
 <h1>🌽 Bhutta Bar</h1>
-<p>Fresh • Zesty • Street Style Corn & Coolers</p>
+<div class="tagline">Fresh • Zesty • Street Style Corn & Coolers</div>
 </div>
 
 <div class="divider"></div>
@@ -235,7 +303,7 @@ body {
 
 <div class="section-title">🌽🥤 Combos</div>
 
-<div class="combo-section">
+<div class="combo-box">
 
 <div class="menu-item">
 <div class="item-details">
@@ -255,11 +323,23 @@ body {
 
 </div>
 
-<div class="footer">
-Made with fresh vibes & street love 🌽✨
+<div class="qr-section">
+<strong>Scan & Order</strong>
+<div class="qr-placeholder">
+Place your QR code image here later<br>
+(or link your ordering system)
+</div>
 </div>
 
 </div>
+
+<a href="#" class="floating-btn">Order Now</a>
+
+<script>
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
+</script>
 
 </body>
 </html>
