@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bhutta Bar 🌽</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Patrick+Hand&family=Quicksand:wght@500&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
   --yellow:#FFD84D;
-  --green:#6BBF59;
-  --pink:#FFB7C5;
-  --blue:#CDEBFF;
-  --ink:#2b2b2b;
+  --green:#66BB6A;
+  --pink:#FFC1D3;
+  --blue:#AEE6FF;
+  --purple:#D5B6FF;
+  --orange:#FFB86C;
 }
 
-/* NOTEBOOK BACKGROUND */
 body{
   margin:0;
   font-family:'Quicksand',sans-serif;
@@ -25,13 +25,12 @@ body{
     repeating-linear-gradient(
       white,
       white 28px,
-      #cfe7ff 29px
+      #d7ebff 29px
     );
-  color:var(--ink);
   overflow-x:hidden;
 }
 
-/* LEFT PINK MARGIN LINE */
+/* Pink margin */
 body::before{
   content:"";
   position:fixed;
@@ -39,11 +38,10 @@ body::before{
   top:0;
   bottom:0;
   width:3px;
-  background:#ff9bb0;
-  opacity:.6;
+  background:#ff8fb1;
+  opacity:.7;
 }
 
-/* HEADER */
 header{
   text-align:center;
   padding:40px 20px 20px;
@@ -56,34 +54,27 @@ header h1{
   margin:0;
 }
 
-header p{
-  font-family:'Patrick Hand',cursive;
-  font-size:1.2rem;
-  margin:5px 0 0;
-}
-
-/* SECTION TITLE */
 .section-title{
   font-family:'Caveat',cursive;
-  font-size:2.2rem;
+  font-size:2rem;
+  margin:50px 0 20px 90px;
   color:var(--yellow);
-  margin:60px 0 20px 90px;
 }
 
-/* TORN PAPER CARD */
+/* Torn Pink Paper Card */
 .card{
-  position:relative;
   width:80%;
   margin:20px auto;
   padding:20px;
-  background:#fffef7;
-  transform:rotate(-1deg);
-  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+  background:var(--pink);
   clip-path:polygon(
-    0% 10%, 5% 0%, 95% 0%, 100% 10%,
-    100% 90%, 95% 100%, 5% 100%, 0% 90%
+    0% 12%, 6% 0%, 94% 0%, 100% 12%,
+    100% 88%, 94% 100%, 6% 100%, 0% 88%
   );
-  transition:transform .3s;
+  box-shadow:0 8px 15px rgba(0,0,0,0.15);
+  position:relative;
+  transform:rotate(-1deg);
+  transition:.3s;
 }
 
 .card:nth-child(even){
@@ -91,7 +82,7 @@ header p{
 }
 
 .card:hover{
-  transform:scale(1.03) rotate(0deg);
+  transform:scale(1.05) rotate(0deg);
 }
 
 .price{
@@ -99,15 +90,14 @@ header p{
   right:20px;
   top:20px;
   background:var(--yellow);
-  padding:5px 12px;
+  padding:6px 12px;
   border-radius:20px;
   font-weight:bold;
 }
 
 .ingredients{
   font-family:'Patrick Hand',cursive;
-  opacity:.7;
-  margin:8px 0;
+  opacity:.8;
 }
 
 button{
@@ -116,15 +106,15 @@ button{
   padding:8px 15px;
   border-radius:20px;
   color:white;
-  cursor:pointer;
   font-family:'Patrick Hand',cursive;
+  cursor:pointer;
 }
 
 button:active{
   transform:scale(.9);
 }
 
-/* CART BUTTON */
+/* Cart */
 #cartBtn{
   position:fixed;
   bottom:25px;
@@ -132,9 +122,8 @@ button:active{
   background:var(--yellow);
   padding:15px;
   border-radius:50%;
-  font-size:1.5rem;
   cursor:pointer;
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  box-shadow:0 5px 15px rgba(0,0,0,.2);
 }
 
 #cartCount{
@@ -148,54 +137,51 @@ button:active{
   border-radius:50%;
 }
 
-/* CART MODAL */
 #cartModal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.4);
+  background:rgba(0,0,0,.4);
   display:none;
   align-items:center;
   justify-content:center;
 }
 
 .modal-content{
-  background:#fffef7;
-  padding:30px;
+  background:white;
+  padding:25px;
   width:90%;
   max-width:400px;
   border-radius:10px;
 }
 
-/* BUBBLES */
+/* Blue Bubbles */
 .bubble{
   position:fixed;
   bottom:-20px;
-  width:12px;
-  height:12px;
-  background:rgba(107,191,89,.4);
+  width:14px;
+  height:14px;
+  background:rgba(174,230,255,.7);
   border-radius:50%;
-  animation:rise 10s infinite linear;
+  animation:rise 10s linear infinite;
 }
 
 @keyframes rise{
-  from{transform:translateY(0);}
   to{transform:translateY(-110vh);}
 }
 
-/* FLY ITEM */
+/* Fly animation */
 .fly{
   position:fixed;
-  font-size:1.2rem;
+  font-size:1.5rem;
   pointer-events:none;
   transition:all .8s ease-in-out;
 }
 
-/* CONFETTI */
+/* Confetti */
 .confetti{
   position:fixed;
   width:8px;
   height:8px;
-  background:var(--pink);
   animation:fall 2s linear forwards;
 }
 
@@ -209,12 +195,13 @@ button:active{
 
 <header>
   <h1>Bhutta Bar 🌽</h1>
-  <p>butter, fizz & cute vibes</p>
 </header>
 
-<h2 class="section-title">Corn ♥ Creations</h2>
+<h2 class="section-title">🌽 Corn Creations</h2>
+<div id="cornSection"></div>
 
-<div id="menu"></div>
+<h2 class="section-title">🥤 Lime Soda Diaries</h2>
+<div id="drinkSection"></div>
 
 <div id="cartBtn" onclick="openCart()">🛒<span id="cartCount">0</span></div>
 
@@ -230,75 +217,73 @@ button:active{
 
 <script>
 
-/* MENU DATA */
-const items=[
+const cornItems=[
 ["Classic Butter Corn",40,"Hot sweet corn with butter & salt"],
 ["Masala Corn",50,"Corn + lemon + chaat masala + onion"],
 ["Peri Peri Corn",60,"Spicy & tangy peri peri flavor"],
 ["Cheese Corn",70,"Loaded with melted cheese"],
-["Tandoori Corn Cup",70,"Smoky masala roasted style"],
+["Tandoori Corn Cup",70,"Smoky masala roasted style"]
+];
+
+const drinkItems=[
 ["Sweet Lime Soda",30,"Fresh nimbu + sugar + soda"],
 ["Salted Lime Soda",30,"Salt + lemon + soda"],
 ["Mint Lime Soda",40,"Minty refreshing twist"],
-["Masala Lime Soda",40,"Jeera + black salt + masala"],
-["Corn + Lime Soda Combo",70,"Any classic corn + any lime soda"],
-["Cheese Corn + Mint Lime Soda",100,"Best seller combo"]
+["Masala Lime Soda",40,"Jeera + black salt + masala"]
 ];
 
 let cart={};
 
-const menuDiv=document.getElementById("menu");
+function createCards(items,section,type){
+  items.forEach(item=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      <div class="price">₹${item[1]}</div>
+      <h3>${item[0]}</h3>
+      <div class="ingredients">${item[2]}</div>
+      <button onclick="addItem('${item[0]}',${item[1]},'${type}',event)">Add</button>
+    `;
+    section.appendChild(card);
+  });
+}
 
-items.forEach(item=>{
-  const card=document.createElement("div");
-  card.className="card";
-  card.innerHTML=`
-    <div class="price">₹${item[1]}</div>
-    <h3>${item[0]}</h3>
-    <div class="ingredients">${item[2]}</div>
-    <button onclick="addItem('${item[0]}',${item[1]},event)">Add</button>
-  `;
-  menuDiv.appendChild(card);
-});
+createCards(cornItems,document.getElementById("cornSection"),"corn");
+createCards(drinkItems,document.getElementById("drinkSection"),"drink");
 
-function addItem(name,price,e){
+function addItem(name,price,type,e){
   if(!cart[name]) cart[name]={price:price,qty:0};
   cart[name].qty++;
   updateCart();
-  flyAnimation(e);
+  flyAnimation(type,e);
   popSound();
 }
 
 function updateCart(){
-  let total=0;
-  let html="";
-  let count=0;
+  let total=0,count=0,html="";
   for(let item in cart){
     total+=cart[item].price*cart[item].qty;
     count+=cart[item].qty;
-    html+=`
-      <p>${item} x${cart[item].qty}
-      <button onclick="changeQty('${item}',-1)">-</button>
-      <button onclick="changeQty('${item}',1)">+</button>
-      </p>`;
+    html+=`<p>${item} x${cart[item].qty}</p>`;
   }
   document.getElementById("cartItems").innerHTML=html;
   document.getElementById("total").innerText=total;
   document.getElementById("cartCount").innerText=count;
 }
 
-function changeQty(name,val){
-  cart[name].qty+=val;
-  if(cart[name].qty<=0) delete cart[name];
-  updateCart();
-}
-
-function openCart(){
-  document.getElementById("cartModal").style.display="flex";
-}
-
-function closeCart(){
-  document.getElementById("cartModal").style.display="none";
+function flyAnimation(type,e){
+  const fly=document.createElement("div");
+  fly.className="fly";
+  fly.innerText= type==="corn" ? "🌽" : "🥤";
+  document.body.appendChild(fly);
+  fly.style.left=e.clientX+"px";
+  fly.style.top=e.clientY+"px";
+  setTimeout(()=>{
+    fly.style.left=window.innerWidth-60+"px";
+    fly.style.top=window.innerHeight-60+"px";
+    fly.style.opacity=0;
+  },10);
+  setTimeout(()=>fly.remove(),800);
 }
 
 function checkout(){
@@ -311,41 +296,22 @@ function checkout(){
   confettiBurst();
 }
 
-/* FLY ANIMATION */
-function flyAnimation(e){
-  const fly=document.createElement("div");
-  fly.className="fly";
-  fly.innerText="🌽";
-  document.body.appendChild(fly);
-  fly.style.left=e.clientX+"px";
-  fly.style.top=e.clientY+"px";
-  setTimeout(()=>{
-    fly.style.left=window.innerWidth-60+"px";
-    fly.style.top=window.innerHeight-60+"px";
-    fly.style.opacity=0;
-  },10);
-  setTimeout(()=>fly.remove(),800);
-}
-
-/* CONFETTI */
 function confettiBurst(){
   for(let i=0;i<30;i++){
     const conf=document.createElement("div");
     conf.className="confetti";
     conf.style.left=Math.random()*100+"vw";
-    conf.style.background=["#FFD84D","#6BBF59","#FFB7C5"][Math.floor(Math.random()*3)];
+    conf.style.background=["#FFD84D","#66BB6A","#FFB7C5","#AEE6FF","#D5B6FF","#FFB86C"][Math.floor(Math.random()*6)];
     document.body.appendChild(conf);
     setTimeout(()=>conf.remove(),2000);
   }
 }
 
-/* SOUND */
 function popSound(){
   const audio=new Audio("https://www.soundjay.com/buttons/sounds/button-16.mp3");
   audio.play();
 }
 
-/* BUBBLES */
 setInterval(()=>{
   const bubble=document.createElement("div");
   bubble.className="bubble";
@@ -354,8 +320,10 @@ setInterval(()=>{
   setTimeout(()=>bubble.remove(),10000);
 },1500);
 
+function openCart(){document.getElementById("cartModal").style.display="flex";}
+function closeCart(){document.getElementById("cartModal").style.display="none";}
+
 </script>
 
 </body>
 </html>
-
