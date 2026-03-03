@@ -3,342 +3,213 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bhutta Bar Menu</title>
+<title>Bhutta Bar 🌽</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
-  --primary:#6b8e00;
-  --accent:#a4c400;
-  --light-bg:linear-gradient(135deg,#f9ffd1,#dcff87);
-  --dark-bg:linear-gradient(135deg,#1c2200,#2f3b00);
-  --card-light:rgba(255,255,255,0.75);
-  --card-dark:rgba(40,50,0,0.85);
-  --text-light:#2e3d00;
-  --text-dark:#f4ffd1;
+  --bg:#fdf6ec;
+  --text:#2b2b2b;
+  --accent:#d97706;
+  --card:#fffaf3;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  transition:all 0.3s ease;
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#111;
+    --text:#f4f4f4;
+    --accent:#ffb703;
+    --card:#1b1b1b;
+  }
 }
 
 body{
+  margin:0;
   font-family:'Poppins',sans-serif;
-  background:var(--light-bg);
-  display:flex;
-  justify-content:center;
-  padding:40px 15px;
-  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  cursor:url('https://cur.cursors-4u.net/food/foo-1/foo76.cur'),auto;
 }
 
-body.dark{
-  background:var(--dark-bg);
-}
-
-.menu-container{
-  width:100%;
-  max-width:800px;
-  background:var(--card-light);
-  backdrop-filter:blur(20px);
-  border-radius:25px;
-  padding:45px;
-  box-shadow:0 25px 60px rgba(0,0,0,0.15);
-  border:1px solid rgba(255,255,255,0.4);
-  animation:fadeIn 1s ease forwards;
-}
-
-body.dark .menu-container{
-  background:var(--card-dark);
-  color:var(--text-dark);
-}
-
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-.header{
+header{
+  position:sticky;
+  top:0;
+  backdrop-filter:blur(10px);
+  background:rgba(255,255,255,0.6);
+  padding:15px;
   text-align:center;
-  margin-bottom:35px;
+  font-family:'Playfair Display',serif;
+  font-size:28px;
+  z-index:1000;
+}
+
+.menu{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  padding:40px;
+}
+
+.card{
+  background:var(--card);
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  text-align:center;
+  transition:0.4s;
   position:relative;
 }
 
-.header h1{
-  font-family:'Playfair Display',serif;
-  font-size:44px;
-  color:var(--primary);
-  letter-spacing:2px;
+.card:hover{
+  transform:translateY(-10px);
 }
 
-body.dark .header h1{
-  color:#d8ff62;
+.card img{
+  width:100%;
+  border-radius:15px;
+  animation:float 3s ease-in-out infinite;
 }
 
-.tagline{
-  font-size:14px;
-  margin-top:6px;
-  opacity:0.8;
-}
-
-.divider{
-  height:2px;
-  background:linear-gradient(to right,transparent,var(--accent),transparent);
-  margin:35px 0;
-}
-
-.section-title{
-  font-family:'Playfair Display',serif;
-  font-size:28px;
-  margin-bottom:25px;
-  text-align:center;
-  letter-spacing:1px;
-}
-
-.menu-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  padding:18px;
-  border-radius:18px;
-  margin-bottom:18px;
-}
-
-.menu-item:hover{
-  background:rgba(255,255,255,0.5);
-  transform:translateY(-4px);
-  box-shadow:0 12px 30px rgba(0,0,0,0.08);
-}
-
-body.dark .menu-item:hover{
-  background:rgba(255,255,255,0.05);
-}
-
-.item-details{
-  max-width:80%;
-}
-
-.item-name{
-  font-weight:600;
-  font-size:18px;
-}
-
-.item-desc{
-  font-size:13px;
-  opacity:0.7;
-  margin-top:5px;
+@keyframes float{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+  100%{transform:translateY(0);}
 }
 
 .price{
-  font-weight:600;
-  font-size:17px;
   color:var(--accent);
-}
-
-.combo-box{
-  padding:20px;
-  border-radius:20px;
-  background:linear-gradient(135deg,#f0ffb3,#e5ff8a);
-}
-
-body.dark .combo-box{
-  background:linear-gradient(135deg,#394500,#2b3300);
-}
-
-.qr-section{
-  text-align:center;
-  margin-top:40px;
-  padding:25px;
-  border:2px dashed var(--accent);
-  border-radius:18px;
-}
-
-.qr-placeholder{
-  margin-top:15px;
-  padding:30px;
-  background:rgba(0,0,0,0.05);
-  border-radius:12px;
-  font-size:14px;
-  opacity:0.7;
-}
-
-body.dark .qr-placeholder{
-  background:rgba(255,255,255,0.05);
-}
-
-.floating-btn{
-  position:fixed;
-  bottom:25px;
-  right:25px;
-  background:var(--accent);
-  color:white;
-  padding:15px 22px;
-  border-radius:50px;
   font-weight:600;
-  text-decoration:none;
-  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  animation:glow 2s infinite alternate;
 }
 
-.floating-btn:hover{
-  transform:scale(1.08);
+@keyframes glow{
+  from{opacity:0.6;}
+  to{text-shadow:0 0 10px var(--accent);}
 }
 
-.toggle{
-  position:absolute;
-  top:0;
-  right:0;
-  cursor:pointer;
-  font-size:14px;
-  padding:6px 10px;
-  border-radius:20px;
+button{
   background:var(--accent);
+  border:none;
+  padding:10px 20px;
   color:white;
+  border-radius:30px;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-@media(max-width:600px){
-  .menu-container{padding:30px;}
-  .header h1{font-size:34px;}
-  .menu-item{flex-direction:column; gap:6px;}
-  .price{align-self:flex-end;}
+button:hover{
+  transform:scale(1.1);
+}
+
+.cart-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:black;
+  color:white;
+  padding:15px 20px;
+  border-radius:50px;
+  font-weight:bold;
+}
+
+.bubbles{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.bubbles span{
+  position:absolute;
+  bottom:-50px;
+  width:15px;
+  height:15px;
+  background:rgba(255,255,255,0.3);
+  border-radius:50%;
+  animation:rise 10s linear infinite;
+}
+
+@keyframes rise{
+  0%{transform:translateY(0);}
+  100%{transform:translateY(-100vh);}
 }
 
 </style>
 </head>
-
 <body>
 
-<div class="menu-container">
+<header>Bhutta Bar 🌽</header>
 
-<div class="header">
-<div class="toggle" onclick="toggleDark()">🌙 Dark</div>
-<h1>🌽 Bhutta Bar</h1>
-<div class="tagline">Fresh • Zesty • Street Style Corn & Coolers</div>
-</div>
+<section class="menu">
 
-<div class="divider"></div>
-
-<div class="section-title">Corn Creations</div>
-
-<div class="menu-item">
-<div class="item-details">
-<div class="item-name">Classic Butter Corn</div>
-<div class="item-desc">Hot sweet corn with butter & salt</div>
-</div>
-<div class="price">₹40</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1604908177522-402b7f6c1b2f" alt="">
+<h3>Masala Bhutta</h3>
+<p class="price">₹40</p>
+<button onclick="addToCart('Masala Bhutta',40)">Add</button>
 </div>
 
-<div class="menu-item">
-<div class="item-details">
-<div class="item-name">Masala Corn</div>
-<div class="item-desc">Corn + lemon + chaat masala + onion</div>
-</div>
-<div class="price">₹50</div>
-</div>
-
-<div class="menu-item">
-<div class="item-details">
-<div class="item-name">Peri Peri Corn</div>
-<div class="item-desc">Spicy & tangy peri peri flavor</div>
-</div>
-<div class="price">₹60</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1590080876098-1a89e2b1f6d7" alt="">
+<h3>Cheese Bhutta</h3>
+<p class="price">₹60</p>
+<button onclick="addToCart('Cheese Bhutta',60)">Add</button>
 </div>
 
-<div class="menu-item">
-<div class="item-details">
-<div class="item-name">Cheese Corn</div>
-<div class="item-desc">Loaded with melted cheese</div>
-</div>
-<div class="price">₹70</div>
-</div>
-
-<div class="menu-item">
-<div class="item-details">
-<div class="item-name">Tandoori Corn Cup</div>
-<div class="item-desc">Smoky masala roasted style</div>
-</div>
-<div class="price">₹70</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1605478039269-efb5bfe5c5d7" alt="">
+<h3>Lemon Soda</h3>
+<p class="price">₹50</p>
+<button onclick="addToCart('Lemon Soda',50)">Add</button>
 </div>
 
-<div class="divider"></div>
+</section>
 
-<div class="section-title">Lime Soda Refreshers</div>
+<button class="cart-btn" onclick="checkout()">Order on WhatsApp 🛒</button>
 
-<div class="menu-item">
-<div class="item-details">
-<div class="item-name">Sweet Lime Soda</div>
-<div class="item-desc">Fresh nimbu + sugar + soda</div>
-</div>
-<div class="price">₹30</div>
-</div>
-
-<div class="menu-item">
-<div class="item-details">
-<div class="item-name">Salted Lime Soda</div>
-<div class="item-desc">Salt + lemon + soda</div>
-</div>
-<div class="price">₹30</div>
+<div class="bubbles">
+<span style="left:10%; animation-delay:0s;"></span>
+<span style="left:30%; animation-delay:2s;"></span>
+<span style="left:60%; animation-delay:4s;"></span>
+<span style="left:80%; animation-delay:1s;"></span>
 </div>
 
-<div class="menu-item">
-<div class="item-details">
-<div class="item-name">Mint Lime Soda</div>
-<div class="item-desc">Minty refreshing twist</div>
-</div>
-<div class="price">₹40</div>
-</div>
-
-<div class="menu-item">
-<div class="item-details">
-<div class="item-name">Masala Lime Soda</div>
-<div class="item-desc">Jeera + black salt + masala</div>
-</div>
-<div class="price">₹40</div>
-</div>
-
-<div class="divider"></div>
-
-<div class="section-title">🌽🥤 Combos</div>
-
-<div class="combo-box">
-
-<div class="menu-item">
-<div class="item-details">
-<div class="item-name">Corn + Lime Soda Combo</div>
-<div class="item-desc">Any classic corn + any lime soda</div>
-</div>
-<div class="price">₹70</div>
-</div>
-
-<div class="menu-item">
-<div class="item-details">
-<div class="item-name">Cheese Corn + Mint Lime Soda</div>
-<div class="item-desc">Premium flavor pairing combo</div>
-</div>
-<div class="price">₹100</div>
-</div>
-
-</div>
-
-<div class="qr-section">
-<strong>Scan & Order</strong>
-<div class="qr-placeholder">
-Place your QR code image here later<br>
-(or link your ordering system)
-</div>
-</div>
-
-</div>
-
-<a href="#" class="floating-btn">Order Now</a>
+<audio id="popSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
 
 <script>
-function toggleDark(){
-  document.body.classList.toggle("dark");
+
+let cart=[];
+
+function addToCart(item,price){
+  cart.push({item,price});
+  document.getElementById("popSound").play();
+  alert(item+" added to cart 🌽");
 }
+
+function checkout(){
+  if(cart.length===0){
+    alert("Cart empty!");
+    return;
+  }
+
+  let message="Hello Bhutta Bar 🌽%0AOrder Details:%0A";
+  let total=0;
+
+  cart.forEach(c=>{
+    message+="• "+c.item+" - ₹"+c.price+"%0A";
+    total+=c.price;
+  });
+
+  message+="%0ATotal: ₹"+total;
+
+  window.open("https://wa.me/91YOURNUMBER?text="+message);
+}
+
 </script>
 
 </body>
