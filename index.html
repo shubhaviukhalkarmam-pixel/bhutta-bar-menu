@@ -1,329 +1,871 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bhutta Bar 🌽</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Bhutta Bar — Scrapbook Menu</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Patrick+Hand&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+  /* -------------------
+     THEME COLORS + TOKENS
+     ------------------- */
+  :root{
+    --green:#6fbf73;        /* main */
+    --yellow:#FFD84D;       /* main */
+    --pink:#FFD6E0;         /* torn paper */
+    --bubble:#AEE6FF;       /* blue bubbles */
+    --paper:#FFFDF6;        /* page */
+    --ink:#2b2b2b;
+    --shadow: rgba(0,0,0,0.12);
+    --accent-1: #F7C6C9;
+    --accent-2: #EEDDAA;
+    --maxw: 1020px;
+  }
 
-:root{
-  --yellow:#FFD84D;
-  --green:#66BB6A;
-  --pink:#FFC1D3;
-  --blue:#AEE6FF;
-  --purple:#D5B6FF;
-  --orange:#FFB86C;
-}
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce){
+    :root { --reduce-motion: 1; }
+  }
 
-body{
-  margin:0;
-  font-family:'Quicksand',sans-serif;
-  background:
-    repeating-linear-gradient(
-      white,
-      white 28px,
-      #d7ebff 29px
+  /* ---------------
+     Base / Notebook
+     --------------- */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:"Quicksand", "Patrick Hand", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:
+      /* subtle pastel rainbow overlay */
+      linear-gradient(120deg, rgba(255,200,200,0.03), rgba(255,240,200,0.03), rgba(200,240,255,0.03)),
+      repeating-linear-gradient( to bottom, var(--paper) 0px, var(--paper) 28px, #dbefff 29px );
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    padding-bottom:120px;
+  }
+
+  /* left margin line like notebook */
+  body::before{
+    content:"";
+    position:fixed;
+    left:68px; top:0; bottom:0;
+    width:4px;
+    background:linear-gradient(#ff9bb1, #ff9bb1);
+    opacity:0.7;
+    pointer-events:none;
+  }
+
+  /* subtle rainbow wash */
+  body::after{
+    content:"";
+    pointer-events:none;
+    position:fixed; inset:0;
+    background: radial-gradient(circle at 10% 10%, rgba(255,215,140,0.03), transparent 10%),
+                radial-gradient(circle at 90% 90%, rgba(175,225,255,0.03), transparent 10%);
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:24px auto;
+    padding:20px;
+  }
+
+  /* header / title */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:8px 18px;
+    margin-bottom:8px;
+    position:sticky;
+    top:8px;
+    z-index:40;
+    background:transparent;
+  }
+  .brand{
+    display:flex; align-items:center; gap:14px;
+  }
+  .logo{
+    font-family:"Caveat", cursive;
+    font-size:40px;
+    color:var(--green);
+    line-height:1;
+  }
+  .tag{
+    font-family:"Patrick Hand",cursive;
+    font-size:14px;
+    color:#6b6b6b;
+  }
+
+  /* header controls */
+  .controls{ display:flex; gap:10px; align-items:center; }
+  .small-btn{
+    background:transparent; border:1px dashed rgba(0,0,0,0.08);
+    padding:8px 10px; border-radius:10px; cursor:pointer; font-weight:600;
+  }
+  .small-btn.active{ background:var(--yellow); color:#fff; border-color:transparent; box-shadow:0 6px 14px var(--shadow); }
+
+  /* sticky hero strip with animated corn svg */
+  .hero{
+    margin:18px 0 6px;
+    padding:12px 20px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px;
+  }
+  .hero-left{ display:flex; gap:12px; align-items:center; }
+  .hero-strip{
+    display:flex; gap:8px; align-items:center;
+  }
+  .corn-svg{ width:48px; height:48px; transform-origin:center; animation:corn-wiggle 3s ease-in-out infinite; }
+  @keyframes corn-wiggle{
+    0%{ transform:translateY(0) rotate(-3deg) }
+    50%{ transform:translateY(-6px) rotate(4deg) }
+    100%{ transform:translateY(0) rotate(-3deg) }
+  }
+
+  /* layout: left menu column, center wide single column (scrapbook feel) */
+  main{ display:grid; grid-template-columns: 1fr; gap:18px; }
+  @media(min-width:980px){
+    main{ grid-template-columns: 1fr 380px; align-items:start; gap:28px; }
+  }
+
+  /* left: menu sections stack */
+  .menu{
+    padding-left:20px;
+  }
+
+  .section-title{
+    font-family:"Caveat",cursive;
+    font-size:28px;
+    margin:26px 0 8px 44px;
+    color:var(--green);
+    position:relative;
+  }
+  .section-sub{
+    font-family:"Patrick Hand",cursive;
+    font-size:14px;
+    margin-left:44px;
+    color:#666;
+  }
+
+  /* torn paper piece item styling */
+  .item-card{
+    width:calc(100% - 120px);
+    max-width:620px;
+    margin:20px 0 8px 44px;
+    padding:18px 22px;
+    background: linear-gradient(180deg, var(--pink), #ffeaf2);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+    position:relative;
+    border-radius:6px;
+    /* torn edges using SVG mask fallback */
+    clip-path: polygon(
+      0% 8%, 4% 0%, 96% 0%, 100% 8%,
+      100% 92%, 96% 100%, 4% 100%, 0% 92%
     );
-  overflow-x:hidden;
-}
+    transform-origin:center;
+    transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s;
+    display:flex; align-items:flex-start; gap:18px;
+    overflow:visible;
+  }
+  .item-card:hover{ transform: translateY(-6px) rotate(0deg); box-shadow:0 18px 40px rgba(0,0,0,0.14); }
 
-/* Pink margin */
-body::before{
-  content:"";
-  position:fixed;
-  left:60px;
-  top:0;
-  bottom:0;
-  width:3px;
-  background:#ff8fb1;
-  opacity:.7;
-}
+  .item-card .tape{
+    position:absolute; left:50%; transform:translateX(-50%); top:-14px;
+    width:72px; height:20px; border-radius:6px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+    box-shadow:0 3px 8px rgba(0,0,0,0.08);
+    transform:rotate(-6deg);
+  }
 
-header{
-  text-align:center;
-  padding:40px 20px 20px;
-}
+  /* item content */
+  .item-meta{ flex:1; }
+  .item-name{
+    font-family:"Caveat",cursive;
+    font-size:20px;
+    margin-bottom:6px;
+    color: #2f5932;
+  }
+  .item-ingredients{
+    font-size:14px; color:#635c63; margin-bottom:10px; font-family:"Patrick Hand",cursive;
+    opacity:.9;
+  }
+  .item-actions{ display:flex; flex-direction:column; gap:8px; align-items:flex-end; min-width:120px; }
 
-header h1{
-  font-family:'Caveat',cursive;
-  font-size:3rem;
-  color:var(--green);
-  margin:0;
-}
+  /* price pill with marker stroke behind */
+  .price-wrap{ position:relative; display:inline-block; }
+  .price-pill{
+    background:var(--yellow); padding:8px 12px; border-radius:22px; font-weight:700; color:#3a3a1a;
+    box-shadow:0 8px 20px rgba(0,0,0,0.12);
+    font-variant-numeric:tabular-nums;
+  }
+  .marker{
+    position:absolute; inset:-8px -12px -8px -12px; z-index:-1; filter: blur(.6px);
+    background: linear-gradient(90deg, rgba(255,180,80,0.25), rgba(170,255,200,0.15));
+    transform: rotate(-6deg);
+    border-radius:8px;
+  }
 
-.section-title{
-  font-family:'Caveat',cursive;
-  font-size:2rem;
-  margin:50px 0 20px 90px;
-  color:var(--yellow);
-}
+  /* add / qty controls as scrapbook buttons */
+  .btn-scrap{
+    background:linear-gradient(180deg,var(--green), #58a85b);
+    color:white; border:none; padding:8px 12px; border-radius:12px; cursor:pointer; font-weight:700;
+    box-shadow:0 6px 16px rgba(0,0,0,0.12);
+  }
+  .qty-controls{ display:flex; gap:8px; align-items:center; }
 
-/* Torn Pink Paper Card */
-.card{
-  width:80%;
-  margin:20px auto;
-  padding:20px;
-  background:var(--pink);
-  clip-path:polygon(
-    0% 12%, 6% 0%, 94% 0%, 100% 12%,
-    100% 88%, 94% 100%, 6% 100%, 0% 88%
-  );
-  box-shadow:0 8px 15px rgba(0,0,0,0.15);
-  position:relative;
-  transform:rotate(-1deg);
-  transition:.3s;
-}
+  .qty-btn{
+    background:white; color:var(--green); border:2px solid var(--green); width:30px; height:30px; border-radius:6px; cursor:pointer; font-weight:700;
+  }
+  .qty-num{ min-width:28px; text-align:center; font-weight:700; }
 
-.card:nth-child(even){
-  transform:rotate(1deg);
-}
+  /* right side: scrapbook cart & combos (popup triggered) */
+  .side{
+    padding:18px; position:relative;
+  }
+  .sticky-card{
+    background: linear-gradient(180deg, #fffdf4, #fff6eb);
+    padding:18px; border-radius:12px; box-shadow:0 14px 36px rgba(0,0,0,0.08);
+    position:sticky; top:18px;
+  }
+  .combos .sticky-note{
+    background: linear-gradient(180deg,#fff4f6,#fff0f1);
+    padding:12px; border-radius:8px; transform:rotate(-3deg);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+    margin-bottom:10px;
+  }
 
-.card:hover{
-  transform:scale(1.05) rotate(0deg);
-}
+  /* floating cart button (scrapbook tab) */
+  .floating-cart{
+    position:fixed; right:26px; bottom:26px; z-index:120;
+    background:linear-gradient(180deg,var(--yellow), #f7c448);
+    padding:16px 18px; border-radius:28px; display:flex; gap:12px; align-items:center;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.2); cursor:pointer;
+  }
+  .floating-cart .count{ background:var(--green); color:white; padding:6px 8px; border-radius:20px; font-weight:700; }
 
-.price{
-  position:absolute;
-  right:20px;
-  top:20px;
-  background:var(--yellow);
-  padding:6px 12px;
-  border-radius:20px;
-  font-weight:bold;
-}
+  /* scrapbook popup modal (cart page) */
+  .modal{
+    position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:200;
+    background: rgba(0,0,0,0.4);
+  }
+  .modal .page{
+    width:92%; max-width:720px; background:linear-gradient(180deg,#fffef7,#fff8ee); border-radius:12px;
+    padding:18px 22px; box-shadow:0 28px 70px rgba(0,0,0,0.3); transform-origin:center; overflow:hidden;
+  }
+  .modal .page h3{ font-family:"Caveat",cursive; font-size:24px; margin:6px 0; }
+  .modal .order-list{ max-height:52vh; overflow:auto; padding-right:8px; margin-bottom:12px; }
+  .order-row{ display:flex; justify-content:space-between; gap:12px; align-items:center; padding:8px 0; border-bottom:1px dashed rgba(0,0,0,0.06); }
+  .order-controls{ display:flex; gap:8px; align-items:center; }
 
-.ingredients{
-  font-family:'Patrick Hand',cursive;
-  opacity:.8;
-}
+  /* confetti */
+  .confetti{
+    position:fixed; width:10px; height:10px; z-index:260; border-radius:2px;
+  }
 
-button{
-  background:var(--green);
-  border:none;
-  padding:8px 15px;
-  border-radius:20px;
-  color:white;
-  font-family:'Patrick Hand',cursive;
-  cursor:pointer;
-}
+  /* bubbles rising */
+  .bubble{
+    position:fixed; bottom:-40px; width:14px; height:14px; border-radius:50%;
+    background:var(--bubble); opacity:.85; z-index:1;
+    box-shadow: inset 0 -4px 6px rgba(255,255,255,0.2);
+  }
 
-button:active{
-  transform:scale(.9);
-}
+  /* pencil scribble underlines */
+  .scribble{ height:8px; background:linear-gradient(90deg,#fff, rgba(0,0,0,0)); filter:blur(.5px); opacity:.35; margin-top:4px; }
 
-/* Cart */
-#cartBtn{
-  position:fixed;
-  bottom:25px;
-  right:25px;
-  background:var(--yellow);
-  padding:15px;
-  border-radius:50%;
-  cursor:pointer;
-  box-shadow:0 5px 15px rgba(0,0,0,.2);
-}
+  /* page curl corner graphic */
+  .page-corner{
+    position:fixed; right:0; bottom:0; width:120px; height:120px; z-index:20; pointer-events:none;
+    background: linear-gradient(135deg,#fffdf8 0%, #e8e2d6 100%); clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    box-shadow:-6px -6px 24px rgba(0,0,0,0.08);
+  }
 
-#cartCount{
-  position:absolute;
-  top:-5px;
-  right:-5px;
-  background:var(--green);
-  color:white;
-  font-size:.7rem;
-  padding:4px 6px;
-  border-radius:50%;
-}
+  /* dark/journal mode */
+  .dark { background: linear-gradient(120deg, rgba(0,0,0,0.4), rgba(8,10,12,0.6)); color:#eaeaea; }
+  .dark .item-card { background: linear-gradient(180deg,#2a2a2a,#232323); color:#f2f2f2; }
+  .dark .floating-cart { background:linear-gradient(180deg,#6b6b2b,#57571f); }
+  .dark .price-pill { color:#111; }
 
-#cartModal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.4);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-
-.modal-content{
-  background:white;
-  padding:25px;
-  width:90%;
-  max-width:400px;
-  border-radius:10px;
-}
-
-/* Blue Bubbles */
-.bubble{
-  position:fixed;
-  bottom:-20px;
-  width:14px;
-  height:14px;
-  background:rgba(174,230,255,.7);
-  border-radius:50%;
-  animation:rise 10s linear infinite;
-}
-
-@keyframes rise{
-  to{transform:translateY(-110vh);}
-}
-
-/* Fly animation */
-.fly{
-  position:fixed;
-  font-size:1.5rem;
-  pointer-events:none;
-  transition:all .8s ease-in-out;
-}
-
-/* Confetti */
-.confetti{
-  position:fixed;
-  width:8px;
-  height:8px;
-  animation:fall 2s linear forwards;
-}
-
-@keyframes fall{
-  to{transform:translateY(100vh) rotate(360deg);}
-}
-
+  /* responsive tweaks */
+  @media (max-width:720px){
+    .item-card{ width: calc(100% - 100px); margin-left:20px; }
+    .section-title{ font-size:22px; margin-left:24px; }
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Bhutta Bar 🌽</h1>
-</header>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo">Bhutta Bar</div>
+      <div>
+        <div class="tag">butter, fizz & cute vibes</div>
+        <div style="font-size:12px; color:#7a7a7a">notebook • scrapbook • menu</div>
+      </div>
+    </div>
 
-<h2 class="section-title">🌽 Corn Creations</h2>
-<div id="cornSection"></div>
+    <div class="controls">
+      <button id="animToggle" class="small-btn">Animations</button>
+      <button id="soundToggle" class="small-btn">Sounds</button>
+      <button id="darkToggle" class="small-btn">Journal</button>
+    </div>
+  </header>
 
-<h2 class="section-title">🥤 Lime Soda Diaries</h2>
-<div id="drinkSection"></div>
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-strip">
+        <!-- animated corn SVG (decorative) -->
+        <svg class="corn-svg" viewBox="0 0 64 64" aria-hidden="true">
+          <g transform="translate(2,2)" fill="none" stroke="none">
+            <ellipse cx="30" cy="30" rx="14" ry="20" fill="#FFE36E"/>
+            <path d="M18 18c6 0 14 8 14 8" stroke="#D9A100" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M22 12c6 0 10 4 10 4" stroke="#C18E00" stroke-width="1.2" stroke-linecap="round"/>
+            <ellipse cx="30" cy="30" rx="14" ry="20" fill-opacity="0.14"/>
+          </g>
+        </svg>
 
-<div id="cartBtn" onclick="openCart()">🛒<span id="cartCount">0</span></div>
-
-<div id="cartModal">
-  <div class="modal-content">
-    <h3>Your Order</h3>
-    <div id="cartItems"></div>
-    <p>Total: ₹<span id="total">0</span></p>
-    <button onclick="checkout()">Send to WhatsApp</button>
-    <button onclick="closeCart()">Close</button>
+        <div style="font-family:Caveat,cursive; font-size:18px; color:#4b7a49;">Cute scrapbook menu</div>
+      </div>
+    </div>
+    <div style="text-align:right; font-size:13px; color:#666">Tap sounds & animations ON (optional)</div>
   </div>
+
+  <main>
+    <!-- LEFT: Menu -->
+    <section class="menu">
+      <h2 class="section-title">🌽 Corn ♥ Creations</h2>
+      <div class="section-sub">Savory bites — buttery, spicy, cheesy</div>
+
+      <!-- Items are generated by JS -->
+      <div id="cornList"></div>
+
+      <h2 class="section-title" style="margin-top:28px">🥤 Fizz & Lime Diaries</h2>
+      <div class="section-sub">Coolers & fizz — lemony, minty, chatpata</div>
+      <div id="drinkList"></div>
+
+      <h2 class="section-title" style="margin-top:28px">🌈 Cute Combos</h2>
+      <div id="comboList"></div>
+
+    </section>
+
+    <!-- RIGHT: sticky combos & quick info -->
+    <aside class="side">
+      <div class="sticky-card">
+        <div style="font-family:Caveat,cursive; font-size:18px; margin-bottom:8px;">Specials</div>
+        <div class="combos">
+          <div class="sticky-note">Corn + Lime Soda Combo — <strong>₹70</strong></div>
+          <div class="sticky-note">Cheese Corn + Mint Soda — <strong>₹100</strong></div>
+        </div>
+
+        <div style="margin-top:14px; font-size:13px; color:#666">
+          <div style="margin-bottom:6px"><strong>Scan & Order</strong> (print QR and stick on counter)</div>
+          <div style="font-size:12px; opacity:.8">When you press "Send to WhatsApp", your order prepares a ready-to-send message to the cafe's WhatsApp.</div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- page curl corner -->
+  <div class="page-corner" aria-hidden="true"></div>
+
+  <!-- floating cart -->
+  <div class="floating-cart" id="floatingCart" role="button" aria-label="Open cart">
+    <div style="font-size:18px">🧾 My Tray</div>
+    <div class="count" id="cartCount">0</div>
+  </div>
+
+  <!-- modal scrapbook cart page (B: popup) -->
+  <div class="modal" id="cartModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="page">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3>Your Order</h3>
+        <div>
+          <button id="closeCartBtn" class="small-btn">Close</button>
+        </div>
+      </div>
+
+      <div class="order-list" id="orderList">
+        <!-- rows inserted here -->
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px;">
+        <div style="font-weight:700;">Total</div>
+        <div style="font-weight:700;">₹<span id="orderTotal">0</span></div>
+      </div>
+
+      <div style="margin-top:14px; display:flex; gap:8px; align-items:center;">
+        <input id="custName" placeholder="Your name (optional)" style="flex:1; padding:8px; border-radius:8px; border:1px solid #eee;">
+        <input id="custPhone" placeholder="Phone (optional)" style="flex:1; padding:8px; border-radius:8px; border:1px solid #eee;">
+      </div>
+
+      <div style="margin-top:14px; display:flex; gap:10px; justify-content:flex-end;">
+        <button id="whatsappBtn" class="small-btn" style="background:linear-gradient(90deg,var(--green), #4fa65b); color:#fff;">Send to WhatsApp</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
+<!-- dynamic elements: bubbles, confetti etc -->
+<div id="effectsRoot" aria-hidden="true"></div>
+
+<!-- Audio (preload but play only after user enables) -->
+<audio id="sfxAdd" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
+<audio id="sfxCart" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" preload="auto"></audio>
+
 <script>
-
-const cornItems=[
-["Classic Butter Corn",40,"Hot sweet corn with butter & salt"],
-["Masala Corn",50,"Corn + lemon + chaat masala + onion"],
-["Peri Peri Corn",60,"Spicy & tangy peri peri flavor"],
-["Cheese Corn",70,"Loaded with melted cheese"],
-["Tandoori Corn Cup",70,"Smoky masala roasted style"]
+/* ===========================
+   DATA: full menu items
+   =========================== */
+const cornItems = [
+  {id:'classic-butter-corn', name:'Classic Butter Corn', price:40, desc:'Hot sweet corn with butter & salt'},
+  {id:'masala-corn', name:'Masala Corn', price:50, desc:'Corn + lemon + chaat masala + onion'},
+  {id:'peri-peri-corn', name:'Peri Peri Corn', price:60, desc:'Spicy & tangy peri peri flavor'},
+  {id:'cheese-corn', name:'Cheese Corn ★', price:70, desc:'Loaded with melted cheese'},
+  {id:'tandoori-cup', name:'Tandoori Corn Cup', price:70, desc:'Smoky masala roasted style'}
 ];
 
-const drinkItems=[
-["Sweet Lime Soda",30,"Fresh nimbu + sugar + soda"],
-["Salted Lime Soda",30,"Salt + lemon + soda"],
-["Mint Lime Soda",40,"Minty refreshing twist"],
-["Masala Lime Soda",40,"Jeera + black salt + masala"]
+const drinkItems = [
+  {id:'sweet-lime', name:'Sweet Lime Soda', price:30, desc:'Fresh nimbu + sugar + soda'},
+  {id:'salted-lime', name:'Salted Lime Soda', price:30, desc:'Salt + lemon + soda'},
+  {id:'mint-lime', name:'Mint Lime Soda', price:40, desc:'Minty refreshing twist'},
+  {id:'masala-lime', name:'Masala Lime Soda', price:40, desc:'Jeera + black salt + masala'}
 ];
 
-let cart={};
+const comboItems = [
+  {id:'combo1', name:'Corn + Lime Soda Combo', price:70, desc:'Any classic corn + any lime soda'},
+  {id:'combo2', name:'Cheese Corn + Mint Lime Soda', price:100, desc:'Best seller combo'}
+];
 
-function createCards(items,section,type){
-  items.forEach(item=>{
-    const card=document.createElement("div");
-    card.className="card";
-    card.innerHTML=`
-      <div class="price">₹${item[1]}</div>
-      <h3>${item[0]}</h3>
-      <div class="ingredients">${item[2]}</div>
-      <button onclick="addItem('${item[0]}',${item[1]},'${type}',event)">Add</button>
+/* ===========================
+   STATE & STORAGE
+   =========================== */
+let cart = JSON.parse(localStorage.getItem('bhuttacart')||'{}');
+let settings = {
+  animations: localStorage.getItem('bhutta_animations') !== '0',
+  sounds: localStorage.getItem('bhutta_sounds') === '1',
+};
+const WHATSAPP_NUMBER = '918087532868'; // <-- REPLACE with your number
+
+/* ===========================
+   UI ELEMENT REFERENCES
+   =========================== */
+const cornList = document.getElementById('cornList');
+const drinkList = document.getElementById('drinkList');
+const comboList = document.getElementById('comboList');
+const floatingCart = document.getElementById('floatingCart');
+const cartCountEl = document.getElementById('cartCount');
+const cartModal = document.getElementById('cartModal');
+const closeCartBtn = document.getElementById('closeCartBtn');
+const orderListEl = document.getElementById('orderList');
+const orderTotalEl = document.getElementById('orderTotal');
+const whatsappBtn = document.getElementById('whatsappBtn');
+const effectsRoot = document.getElementById('effectsRoot');
+const animToggle = document.getElementById('animToggle');
+const soundToggle = document.getElementById('soundToggle');
+const darkToggle = document.getElementById('darkToggle');
+
+/* ===========================
+   RENDERING
+   =========================== */
+function makeItemCard(item, type){
+  const el = document.createElement('div');
+  el.className = 'item-card';
+  el.dataset.id = item.id;
+  el.dataset.type = type;
+  el.innerHTML = `
+    <div class="tape" aria-hidden="true"></div>
+    <div class="item-meta">
+      <div class="item-name">${item.name}</div>
+      <div class="item-ingredients">${item.desc}</div>
+      <div class="scribble" style="width:40%;"></div>
+    </div>
+    <div class="item-actions">
+      <div class="price-wrap">
+        <div class="marker" aria-hidden="true"></div>
+        <div class="price-pill">₹${item.price}</div>
+      </div>
+      <div style="height:8px"></div>
+      <div class="qty-controls" style="align-items:center;">
+        <button class="btn-scrap" data-action="add">Add</button>
+      </div>
+    </div>`;
+  // attach handlers
+  const addBtn = el.querySelector('[data-action="add"]');
+  addBtn.addEventListener('click', (e)=> {
+    handleAdd(item.id, item.name, item.price, type, e);
+  });
+  return el;
+}
+
+function renderMenu(){
+  cornList.innerHTML='';
+  drinkList.innerHTML='';
+  comboList.innerHTML='';
+  cornItems.forEach(it=> cornList.appendChild(makeItemCard(it,'corn')));
+  drinkItems.forEach(it=> drinkList.appendChild(makeItemCard(it,'drink')));
+  comboItems.forEach(it=> comboList.appendChild(makeItemCard(it,'combo')));
+}
+
+renderMenu();
+
+/* ===========================
+   CART: add / qty / persist
+   =========================== */
+function saveCart(){
+  localStorage.setItem('bhuttacart', JSON.stringify(cart));
+}
+
+function handleAdd(id,name,price,type,event){
+  if(!cart[id]) cart[id] = {id,name,price,qty:0,type};
+  cart[id].qty++;
+  saveCart();
+  refreshCartUI();
+  // play sound (if allowed)
+  if(settings.sounds) playSfx('add');
+  // fly animation based on type
+  if(settings.animations) flyToCart(type, event);
+  // confetti small burst
+  if(settings.animations) confetti(8);
+}
+
+function changeQty(id,delta){
+  if(!cart[id]) return;
+  cart[id].qty += delta;
+  if(cart[id].qty <= 0) delete cart[id];
+  saveCart();
+  refreshCartUI();
+}
+
+/* refresh modal and floating count */
+function refreshCartUI(){
+  // count and total
+  let count = 0, total = 0;
+  for(const k in cart){ count += cart[k].qty; total += cart[k].qty * cart[k].price; }
+  cartCountEl.textContent = count;
+  orderTotalEl.textContent = total;
+  // render order rows
+  orderListEl.innerHTML = '';
+  for(const k in cart){
+    const row = document.createElement('div');
+    row.className = 'order-row';
+    row.innerHTML = `
+      <div style="flex:1">
+        <div style="font-weight:700">${cart[k].name}</div>
+        <div style="font-size:13px; color:#666">${cart[k].price} × ${cart[k].qty} = ₹${cart[k].price*cart[k].qty}</div>
+      </div>
+      <div class="order-controls">
+        <button class="qty-btn" data-id="${k}" data-delta="-1">−</button>
+        <div class="qty-num">${cart[k].qty}</div>
+        <button class="qty-btn" data-id="${k}" data-delta="1">+</button>
+      </div>
     `;
-    section.appendChild(card);
+    orderListEl.appendChild(row);
+  }
+  // attach qty handlers
+  orderListEl.querySelectorAll('.qty-btn').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const id = b.dataset.id;
+      const delta = parseInt(b.dataset.delta,10);
+      changeQty(id, delta);
+      if(settings.sounds) playSfx('pop');
+    });
   });
 }
 
-createCards(cornItems,document.getElementById("cornSection"),"corn");
-createCards(drinkItems,document.getElementById("drinkSection"),"drink");
+/* ===========================
+   FLY-TO-CART animation (curved seeking)
+   =========================== */
+function flyToCart(type, e){
+  // get cart center
+  const rect = floatingCart.getBoundingClientRect();
+  const targetX = rect.left + rect.width/2;
+  const targetY = rect.top + rect.height/2;
 
-function addItem(name,price,type,e){
-  if(!cart[name]) cart[name]={price:price,qty:0};
-  cart[name].qty++;
-  updateCart();
-  flyAnimation(type,e);
-  popSound();
-}
-
-function updateCart(){
-  let total=0,count=0,html="";
-  for(let item in cart){
-    total+=cart[item].price*cart[item].qty;
-    count+=cart[item].qty;
-    html+=`<p>${item} x${cart[item].qty}</p>`;
-  }
-  document.getElementById("cartItems").innerHTML=html;
-  document.getElementById("total").innerText=total;
-  document.getElementById("cartCount").innerText=count;
-}
-
-function flyAnimation(type,e){
-  const fly=document.createElement("div");
-  fly.className="fly";
-  fly.innerText= type==="corn" ? "🌽" : "🥤";
+  // create element
+  const fly = document.createElement('div');
+  fly.className = 'fly';
+  fly.style.left = (e.clientX - 12) + 'px';
+  fly.style.top = (e.clientY - 12) + 'px';
+  fly.style.opacity = '1';
+  fly.style.zIndex = 1000;
+  fly.textContent = (type==='corn') ? '🌽' : (type==='drink' ? '🥤' : '✨');
   document.body.appendChild(fly);
-  fly.style.left=e.clientX+"px";
-  fly.style.top=e.clientY+"px";
-  setTimeout(()=>{
-    fly.style.left=window.innerWidth-60+"px";
-    fly.style.top=window.innerHeight-60+"px";
-    fly.style.opacity=0;
-  },10);
-  setTimeout(()=>fly.remove(),800);
-}
 
-function checkout(){
-  let message="Hello! I would like to order:%0A";
-  for(let item in cart){
-    message+=`${item} x${cart[item].qty}%0A`;
+  // compute control point for a gentle curve (midpoint offset upward)
+  const startX = e.clientX;
+  const startY = e.clientY;
+  const midX = (startX + targetX)/2;
+  const midY = Math.min(startY, targetY) - 120; // lift up for curve
+
+  // we'll animate with requestAnimationFrame along a quadratic Bezier
+  const duration = settings.animations ? 700 : 0;
+  const start = performance.now();
+
+  function bezier(t, p0, p1, p2){
+    const u = 1 - t;
+    return u*u*p0 + 2*u*t*p1 + t*t*p2;
   }
-  message+=`Total: ₹${document.getElementById("total").innerText}`;
-  window.open("https://wa.me/918087532868?text="+message);
-  confettiBurst();
+
+  function step(now){
+    const t = Math.min((now - start) / duration, 1);
+    const x = bezier(t, startX, midX, targetX);
+    const y = bezier(t, startY, midY, targetY);
+    fly.style.left = (x - 12) + 'px';
+    fly.style.top = (y - 12) + 'px';
+    fly.style.transform = `scale(${1 - 0.4*t}) rotate(${t*360}deg)`;
+    if(t < 1) requestAnimationFrame(step);
+    else {
+      // small pop on hit
+      fly.style.opacity = '0';
+      setTimeout(()=> fly.remove(), 120);
+      // play cart sound
+      if(settings.sounds) playSfx('cart');
+    }
+  }
+  if(duration>0) requestAnimationFrame(step);
+  else { fly.remove(); if(settings.sounds) playSfx('cart'); }
 }
 
-function confettiBurst(){
-  for(let i=0;i<30;i++){
-    const conf=document.createElement("div");
-    conf.className="confetti";
-    conf.style.left=Math.random()*100+"vw";
-    conf.style.background=["#FFD84D","#66BB6A","#FFB7C5","#AEE6FF","#D5B6FF","#FFB86C"][Math.floor(Math.random()*6)];
-    document.body.appendChild(conf);
-    setTimeout(()=>conf.remove(),2000);
+/* ===========================
+   CONFETTI
+   =========================== */
+function confetti(amount=20){
+  const colors = ['#FFD84D','#6fbf73','#FFC1D3','#AEE6FF','#D5B6FF','#FFB86C'];
+  for(let i=0;i<amount;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = (Math.random()*80 + 10) + 'vw';
+    c.style.top = (Math.random()*30 + 5) + 'vh';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.transform = `rotate(${Math.random()*360}deg)`;
+    c.style.zIndex = 300;
+    document.body.appendChild(c);
+    // let it fall using keyframes via JS (simple)
+    c.animate([{transform:`translateY(0) rotate(0deg)`, opacity:1},
+               {transform:`translateY(110vh) rotate(720deg)`, opacity:0.9}], {duration:1800 + Math.random()*800, easing:'cubic-bezier(.2,.8,.2,1)'});
+    setTimeout(()=> c.remove(), 2600);
   }
 }
 
-function popSound(){
-  const audio=new Audio("https://www.soundjay.com/buttons/sounds/button-16.mp3");
-  audio.play();
+/* ===========================
+   BUBBLES RISING (blue)
+   =========================== */
+let bubbleTimer = null;
+function startBubbles(){
+  if(bubbleTimer) return;
+  bubbleTimer = setInterval(()=>{
+    const b = document.createElement('div');
+    b.className = 'bubble';
+    b.style.left = Math.random()*100 + 'vw';
+    b.style.width = (8 + Math.random()*18) + 'px';
+    b.style.height = b.style.width;
+    effectsRoot.appendChild(b);
+    b.animate([{transform:'translateY(0)', opacity:1},{transform:'translateY(-120vh)', opacity:0}], {duration: 7000 + Math.random()*6000, easing:'linear'});
+    setTimeout(()=> b.remove(), 14000);
+  }, 900);
+}
+function stopBubbles(){ clearInterval(bubbleTimer); bubbleTimer=null; }
+
+/* ===========================
+   SOUNDS: controlled by user toggle
+   =========================== */
+const sfxAdd = document.getElementById('sfxAdd');
+const sfxCart = document.getElementById('sfxCart');
+
+function playSfx(name){
+  if(!settings.sounds) return;
+  try{
+    if(name==='add'){ sfxAdd.currentTime = 0; sfxAdd.play(); }
+    if(name==='cart'){ sfxCart.currentTime = 0; sfxCart.play(); }
+    if(name==='pop'){ sfxAdd.currentTime=0; sfxAdd.play(); }
+  }catch(e){ /* ignore play errors */ }
 }
 
-setInterval(()=>{
-  const bubble=document.createElement("div");
-  bubble.className="bubble";
-  bubble.style.left=Math.random()*100+"vw";
-  document.body.appendChild(bubble);
-  setTimeout(()=>bubble.remove(),10000);
-},1500);
+/* ===========================
+   UI: open/close cart modal (scrapbook popup)
+   =========================== */
+function openCart(){
+  cartModal.style.display = 'flex';
+  cartModal.setAttribute('aria-hidden','false');
+  if(settings.animations) confetti(6);
+  if(settings.sounds) playSfx('cart');
+}
+function closeCart(){
+  cartModal.style.display = 'none';
+  cartModal.setAttribute('aria-hidden','true');
+}
 
-function openCart(){document.getElementById("cartModal").style.display="flex";}
-function closeCart(){document.getElementById("cartModal").style.display="none";}
+/* ===========================
+   WHATSAPP MESSAGE SEND
+   =========================== */
+function sendWhatsApp(){
+  if(Object.keys(cart).length === 0){
+    alert('Your tray is empty!');
+    return;
+  }
+  const name = document.getElementById('custName').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+  let msg = `Hello Bhutta Bar 🌽%0AOrder details:%0A`;
+  for(const id in cart){
+    const it = cart[id];
+    msg += `• ${it.name} x${it.qty} — ₹${it.price*it.qty}%0A`;
+  }
+  const total = document.getElementById('orderTotal').textContent;
+  msg += `%0ATotal: ₹${total}%0A`;
+  if(name) msg += `%0AName: ${encodeURIComponent(name)}%0A`;
+  if(phone) msg += `Phone: ${encodeURIComponent(phone)}%0A`;
+  // open whatsapp web / app
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+  // visual feedback
+  confetti(20);
+}
+
+/* ===========================
+   TOGGLES & INITIAL STATE
+   =========================== */
+animToggle.addEventListener('click', ()=>{
+  settings.animations = !settings.animations;
+  animToggle.classList.toggle('active', settings.animations);
+  localStorage.setItem('bhutta_animations', settings.animations ? '1' : '0');
+  if(settings.animations) startBubbles(); else stopBubbles();
+});
+soundToggle.addEventListener('click', ()=>{
+  settings.sounds = !settings.sounds;
+  soundToggle.classList.toggle('active', settings.sounds);
+  localStorage.setItem('bhutta_sounds', settings.sounds ? '1' : '0');
+});
+darkToggle.addEventListener('click', ()=>{
+  document.body.classList.toggle('dark');
+  darkToggle.classList.toggle('active', document.body.classList.contains('dark'));
+});
+
+/* attach floating cart click */
+floatingCart.addEventListener('click', openCart);
+closeCartBtn.addEventListener('click', closeCart);
+whatsappBtn.addEventListener('click', sendWhatsApp);
+
+/* enable bubbles initially if animations on */
+if(settings.animations) { animToggle.classList.add('active'); startBubbles(); }
+if(settings.sounds) soundToggle.classList.add('active');
+
+/* fill initial cart from storage */
+refreshCartUI();
+
+/* Prevent sound autoplay: we only play when user toggles sounds or clicks Add */
+document.addEventListener('click', function enableAudioOnce(){
+  // many browsers require user gesture to allow sound playback; this fires once
+  sfxAdd.play().then(()=>{ sfxAdd.pause(); sfxAdd.currentTime=0; }).catch(()=>{});
+  sfxCart.play().then(()=>{ sfxCart.pause(); sfxCart.currentTime=0; }).catch(()=>{});
+  document.removeEventListener('click', enableAudioOnce);
+});
+
+/* render menu items into DOM (after functions defined) */
+function insertMenu(){
+  const cornListDiv = document.getElementById('cornList');
+  const drinkListDiv = document.getElementById('drinkList');
+  const comboListDiv = document.getElementById('comboList');
+
+  cornItems.forEach(it=>{
+    const card = makeCardDOM(it, 'corn'); cornListDiv.appendChild(card);
+  });
+  drinkItems.forEach(it=>{
+    const card = makeCardDOM(it, 'drink'); drinkListDiv.appendChild(card);
+  });
+  comboItems.forEach(it=>{
+    const card = makeCardDOM(it, 'combo'); comboListDiv.appendChild(card);
+  });
+}
+
+/* helper to create card DOM with quantity UI and separate remove / +/- */
+function makeCardDOM(item, type){
+  const wrapper = document.createElement('div');
+  wrapper.className = 'item-card';
+  wrapper.dataset.id = item.id;
+  wrapper.innerHTML = `
+    <div class="tape" aria-hidden="true"></div>
+    <div class="item-meta">
+      <div class="item-name">${item.name}</div>
+      <div class="item-ingredients">${item.desc}</div>
+      <div class="scribble" style="width:28%"></div>
+    </div>
+    <div class="item-actions">
+      <div class="price-wrap"><div class="marker" aria-hidden="true"></div><div class="price-pill">₹${item.price}</div></div>
+      <div style="height:8px"></div>
+      <div class="qty-controls" style="flex-direction:row;">
+        <button class="qty-btn qty-decrease" title="Decrease">−</button>
+        <div class="qty-num" aria-live="polite">0</div>
+        <button class="qty-btn qty-increase" title="Increase">+</button>
+        <button class="btn-scrap add-now" style="margin-left:8px">Add</button>
+      </div>
+    </div>
+  `;
+  // wire up buttons
+  const id = item.id;
+  wrapper.querySelector('.qty-increase').addEventListener('click', (e)=>{
+    if(!cart[id]) cart[id] = {id, name:item.name, price:item.price, qty:0, type};
+    cart[id].qty++;
+    saveCart(); refreshCartUI(); updateQtyDisplay(wrapper);
+    if(settings.sounds) playSfx('add');
+    if(settings.animations) flyToCart(type, e);
+  });
+  wrapper.querySelector('.qty-decrease').addEventListener('click', (e)=>{
+    if(cart[id]){ cart[id].qty--; if(cart[id].qty<=0) delete cart[id]; saveCart(); refreshCartUI(); updateQtyDisplay(wrapper);}
+  });
+  wrapper.querySelector('.add-now').addEventListener('click', (e)=>{
+    // add single and animate
+    if(!cart[id]) cart[id] = {id, name:item.name, price:item.price, qty:0, type};
+    cart[id].qty++;
+    saveCart(); refreshCartUI(); updateQtyDisplay(wrapper);
+    if(settings.sounds) playSfx('add');
+    if(settings.animations) flyToCart(type, e);
+    confetti(6);
+  });
+  return wrapper;
+}
+
+/* update the qty display inside the card (so + / - reflect current cart) */
+function updateQtyDisplay(cardEl){
+  const id = cardEl.dataset.id;
+  const num = cardEl.querySelector('.qty-num');
+  num.textContent = cart[id] ? cart[id].qty : 0;
+}
+
+/* Update all card qty displays from current cart - used after load */
+function syncAllQtyDisplays(){
+  document.querySelectorAll('.item-card').forEach(card=>{
+    updateQtyDisplay(card);
+  });
+}
+
+/* final startup */
+insertMenu();
+refreshCartUI();
+syncAllQtyDisplays();
+
+/* autocheck dark-mode preference */
+if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+  document.body.classList.add('dark');
+  darkToggle.classList.add('active');
+}
+
+/* Accessibility: keyboard open cart via Enter on floating */
+floatingCart.addEventListener('keydown',(e)=>{ if(e.key === 'Enter') openCart(); });
+
+/* expose whatsapp send */
+whatsappBtn.addEventListener('click', sendWhatsApp);
+
+/* helper: saveCart exposed earlier */
+function sendWhatsApp(){ sendWhatsApp = sendWhatsApp; } // placeholder to avoid lint warning
+
+// actual send handler bound earlier to whatsappBtn already uses sendWhatsApp() defined above
 
 </script>
-
 </body>
 </html>
