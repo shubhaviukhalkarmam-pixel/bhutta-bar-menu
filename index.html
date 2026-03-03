@@ -5,303 +5,258 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bhutta Bar Menu</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --deep-green:#1E3D2B;
-  --mid-green:#3C7A3E;
-  --lime:#DFF48A;
-  --yellow:#F4C430;
-  --bg:#FAF8F1;
-  --text:#2F2F2F;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;}
-
-body{
-  font-family:'Poppins', sans-serif;
-  background:
-  radial-gradient(circle at top left, rgba(212,240,120,0.2), transparent 40%),
-  radial-gradient(circle at bottom right, rgba(244,196,48,0.2), transparent 40%),
-  var(--bg);
-  padding:60px 20px;
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f7ffcc, #d4f57c);
+    display: flex;
+    justify-content: center;
+    padding: 40px 15px;
 }
 
-.menu-wrapper{
-  max-width:950px;
-  margin:auto;
-  background:white;
-  padding:80px 90px;
-  border-radius:25px;
-  position:relative;
-  box-shadow:0 30px 60px rgba(0,0,0,0.08);
-  border:3px solid rgba(223,244,138,0.5);
+.menu-container {
+    width: 100%;
+    max-width: 750px;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    border: 2px solid #c7e86b;
 }
 
-/* Decorative Corners */
-.menu-wrapper::before,
-.menu-wrapper::after{
-  content:"";
-  position:absolute;
-  width:120px;
-  height:120px;
-  border:6px solid var(--lime);
-  opacity:0.2;
+.header {
+    text-align: center;
+    margin-bottom: 35px;
 }
 
-.menu-wrapper::before{
-  top:-20px;
-  left:-20px;
-  border-right:none;
-  border-bottom:none;
-  border-radius:25px 0 0 0;
+.header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    color: #567d00;
+    letter-spacing: 2px;
 }
 
-.menu-wrapper::after{
-  bottom:-20px;
-  right:-20px;
-  border-left:none;
-  border-top:none;
-  border-radius:0 0 25px 0;
+.header p {
+    font-size: 14px;
+    color: #6a7c35;
+    margin-top: 5px;
 }
 
-.header{
-  text-align:center;
-  margin-bottom:70px;
+.divider {
+    height: 3px;
+    background: linear-gradient(to right, transparent, #a4c400, transparent);
+    margin: 30px 0;
 }
 
-.header h1{
-  font-family:'Playfair Display', serif;
-  font-size:60px;
-  letter-spacing:5px;
-  color:var(--deep-green);
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: #4f6f00;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 1px;
 }
 
-.tagline{
-  margin-top:15px;
-  font-size:15px;
-  letter-spacing:3px;
-  color:var(--mid-green);
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 22px;
+    padding: 15px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
 }
 
-.section{
-  margin-bottom:70px;
+.menu-item:hover {
+    background-color: #f3ffd9;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 
-.section-title{
-  font-family:'Playfair Display', serif;
-  font-size:32px;
-  color:var(--deep-green);
-  text-align:center;
-  margin-bottom:40px;
-  position:relative;
+.item-details {
+    max-width: 80%;
 }
 
-.section-title::before,
-.section-title::after{
-  content:"";
-  position:absolute;
-  top:50%;
-  width:60px;
-  height:3px;
-  background:linear-gradient(to right,var(--yellow),var(--lime));
+.item-name {
+    font-weight: 600;
+    font-size: 17px;
+    color: #3d5400;
 }
 
-.section-title::before{
-  left:0;
+.item-desc {
+    font-size: 13px;
+    color: #6f7d42;
+    margin-top: 4px;
 }
 
-.section-title::after{
-  right:0;
+.price {
+    font-weight: 600;
+    font-size: 16px;
+    color: #7aa800;
 }
 
-.menu-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  padding:25px 0;
-  border-bottom:1px dashed rgba(0,0,0,0.07);
+.combo-section {
+    background: linear-gradient(135deg, #f0ffb3, #e4ff8f);
+    padding: 20px;
+    border-radius: 18px;
+    margin-top: 10px;
 }
 
-.menu-item:last-child{
-  border-bottom:none;
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 13px;
+    color: #6a7c35;
 }
 
-.item-details{
-  max-width:75%;
+@media(max-width:600px){
+    .menu-container{
+        padding:25px;
+    }
+
+    .header h1{
+        font-size:32px;
+    }
+
+    .menu-item{
+        flex-direction: column;
+        gap:5px;
+    }
+
+    .price{
+        align-self:flex-end;
+    }
 }
 
-.item-name{
-  font-weight:600;
-  font-size:20px;
-  color:var(--deep-green);
-}
-
-.ingredients{
-  font-size:14px;
-  margin-top:8px;
-  color:#777;
-  font-weight:300;
-}
-
-.price{
-  background:linear-gradient(135deg,var(--yellow),var(--lime));
-  padding:8px 16px;
-  border-radius:20px;
-  font-weight:700;
-  font-size:16px;
-  color:var(--deep-green);
-  box-shadow:0 5px 15px rgba(0,0,0,0.08);
-}
-
-.combo-section{
-  padding:40px;
-  border-radius:20px;
-  background:linear-gradient(135deg,var(--yellow),var(--lime));
-  margin-top:20px;
-  color:var(--deep-green);
-}
-
-.combo-section h3{
-  font-family:'Playfair Display', serif;
-  font-size:28px;
-  margin-bottom:25px;
-  text-align:center;
-}
-
-.combo-item{
-  display:flex;
-  justify-content:space-between;
-  font-weight:600;
-  font-size:18px;
-  margin-bottom:15px;
-}
-
-.footer{
-  text-align:center;
-  margin-top:70px;
-  font-size:13px;
-  letter-spacing:2px;
-  color:#888;
-}
-
-@media(max-width:768px){
-  .menu-wrapper{
-    padding:50px 35px;
-  }
-  .header h1{
-    font-size:42px;
-  }
-}
 </style>
 </head>
 
 <body>
 
-<div class="menu-wrapper">
+<div class="menu-container">
 
 <div class="header">
-  <h1>BHUTTA BAR</h1>
-  <div class="tagline">Sip the Zing · Bite the Bhutta</div>
+<h1>🌽 Bhutta Bar</h1>
+<p>Fresh • Zesty • Street Style Corn & Coolers</p>
 </div>
 
-<div class="section">
-  <div class="section-title">Corn Cups</div>
+<div class="divider"></div>
 
-  <div class="menu-item">
-    <div class="item-details">
-      <div class="item-name">Classic Butter Corn</div>
-      <div class="ingredients">Ingredients: Sweet corn, butter, salt</div>
-    </div>
-    <div class="price">₹40</div>
-  </div>
+<div class="section-title">Corn Creations</div>
 
-  <div class="menu-item">
-    <div class="item-details">
-      <div class="item-name">Masala Corn</div>
-      <div class="ingredients">Ingredients: Corn, lemon, chaat masala, onion</div>
-    </div>
-    <div class="price">₹50</div>
-  </div>
-
-  <div class="menu-item">
-    <div class="item-details">
-      <div class="item-name">Peri Peri Corn</div>
-      <div class="ingredients">Ingredients: Corn, peri peri spice mix</div>
-    </div>
-    <div class="price">₹60</div>
-  </div>
-
-  <div class="menu-item">
-    <div class="item-details">
-      <div class="item-name">Cheese Corn</div>
-      <div class="ingredients">Ingredients: Corn, melted cheese</div>
-    </div>
-    <div class="price">₹70</div>
-  </div>
-
-  <div class="menu-item">
-    <div class="item-details">
-      <div class="item-name">Tandoori Corn Cup</div>
-      <div class="ingredients">Ingredients: Corn, tandoori masala, smoky seasoning</div>
-    </div>
-    <div class="price">₹70</div>
-  </div>
+<div class="menu-item">
+<div class="item-details">
+<div class="item-name">Classic Butter Corn</div>
+<div class="item-desc">Hot sweet corn with butter & salt</div>
+</div>
+<div class="price">₹40</div>
 </div>
 
-<div class="section">
-  <div class="section-title">Lime Soda Refreshers</div>
-
-  <div class="menu-item">
-    <div class="item-details">
-      <div class="item-name">Sweet Lime Soda</div>
-      <div class="ingredients">Ingredients: Lemon, sugar, soda</div>
-    </div>
-    <div class="price">₹30</div>
-  </div>
-
-  <div class="menu-item">
-    <div class="item-details">
-      <div class="item-name">Salted Lime Soda</div>
-      <div class="ingredients">Ingredients: Lemon, salt, soda</div>
-    </div>
-    <div class="price">₹30</div>
-  </div>
-
-  <div class="menu-item">
-    <div class="item-details">
-      <div class="item-name">Mint Lime Soda</div>
-      <div class="ingredients">Ingredients: Lemon, mint, soda</div>
-    </div>
-    <div class="price">₹40</div>
-  </div>
-
-  <div class="menu-item">
-    <div class="item-details">
-      <div class="item-name">Masala Lime Soda</div>
-      <div class="ingredients">Ingredients: Lemon, jeera, black salt, masala</div>
-    </div>
-    <div class="price">₹40</div>
-  </div>
+<div class="menu-item">
+<div class="item-details">
+<div class="item-name">Masala Corn</div>
+<div class="item-desc">Corn + lemon + chaat masala + onion</div>
 </div>
+<div class="price">₹50</div>
+</div>
+
+<div class="menu-item">
+<div class="item-details">
+<div class="item-name">Peri Peri Corn</div>
+<div class="item-desc">Spicy & tangy peri peri flavor</div>
+</div>
+<div class="price">₹60</div>
+</div>
+
+<div class="menu-item">
+<div class="item-details">
+<div class="item-name">Cheese Corn</div>
+<div class="item-desc">Loaded with melted cheese</div>
+</div>
+<div class="price">₹70</div>
+</div>
+
+<div class="menu-item">
+<div class="item-details">
+<div class="item-name">Tandoori Corn Cup</div>
+<div class="item-desc">Smoky masala roasted style</div>
+</div>
+<div class="price">₹70</div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section-title">Lime Soda Refreshers</div>
+
+<div class="menu-item">
+<div class="item-details">
+<div class="item-name">Sweet Lime Soda</div>
+<div class="item-desc">Fresh nimbu + sugar + soda</div>
+</div>
+<div class="price">₹30</div>
+</div>
+
+<div class="menu-item">
+<div class="item-details">
+<div class="item-name">Salted Lime Soda</div>
+<div class="item-desc">Salt + lemon + soda</div>
+</div>
+<div class="price">₹30</div>
+</div>
+
+<div class="menu-item">
+<div class="item-details">
+<div class="item-name">Mint Lime Soda</div>
+<div class="item-desc">Minty refreshing twist</div>
+</div>
+<div class="price">₹40</div>
+</div>
+
+<div class="menu-item">
+<div class="item-details">
+<div class="item-name">Masala Lime Soda</div>
+<div class="item-desc">Jeera + black salt + masala</div>
+</div>
+<div class="price">₹40</div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section-title">🌽🥤 Combos</div>
 
 <div class="combo-section">
-  <h3>🌽🥤 Combos</h3>
 
-  <div class="combo-item">
-    <span>Corn + Lime Soda Combo</span>
-    <span>₹70</span>
-  </div>
+<div class="menu-item">
+<div class="item-details">
+<div class="item-name">Corn + Lime Soda Combo</div>
+<div class="item-desc">Any classic corn + any lime soda</div>
+</div>
+<div class="price">₹70</div>
+</div>
 
-  <div class="combo-item">
-    <span>Cheese Corn + Mint Lime Soda</span>
-    <span>₹100</span>
-  </div>
+<div class="menu-item">
+<div class="item-details">
+<div class="item-name">Cheese Corn + Mint Lime Soda</div>
+<div class="item-desc">Premium flavor pairing combo</div>
+</div>
+<div class="price">₹100</div>
+</div>
+
 </div>
 
 <div class="footer">
-  Fresh Daily • Made with Love • Follow @bhuttabar
+Made with fresh vibes & street love 🌽✨
 </div>
 
 </div>
